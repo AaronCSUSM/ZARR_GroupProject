@@ -1,0 +1,25 @@
+Database
+  Create Database (complete)
+  Create table (complete)
+  Function: Insert new cities. (complete)
+  Function: Check if city is in database (incomplete, Aaron)
+  Function: Retrieve coordinates from database (incomplete, Aaron)
+
+API
+  Function: send request for geocoding coordinates using city, country, region (if USA). (incomplete)
+  Function: send request for locations of interest using city coordinates and category. (incomplete)
+
+GUI
+  Home page. (incomplete, Rebecca)
+  Text fields that read in City name, Country name, category, and region (if a state in USA). (incomplete)
+  Page for each starting category: Museums, Category 2, Category 3, Category 4. (incomplete)
+  Display results from API requests. (incomplete)
+
+Runner
+  Have main working and program working (incomplete)
+    Not complete, just running
+
+JUnit
+  Implement testing for database functions. (incomplete, Aaron)
+  Implement testing for API functions. (incomplete)
+  Implement testing for GUI functions.

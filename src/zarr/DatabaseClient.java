@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.Properties;
 
 //Declares DatabaseManager class
-public class ZARR_DB {
+public class DatabaseClient {
 	
 	//dbClassname: name of MySQL JBDC driver class. Used to establish connection to MySQL database.
 	private static final String dbClassname = "com.mysql.cj.jdbc.Driver";
@@ -14,7 +14,7 @@ public class ZARR_DB {
 	//url of the MySQL server
 	private static final String CONNECTION = "jdbc:mysql://127.0.0.1/zarr_db";
 	
-	public static void main(String[] args) throws ClassNotFoundException,SQLException
+	public void initialize() throws ClassNotFoundException,SQLException
 	{
 		//properties object used to store username and password
 		Properties dbCredentials = new Properties();
@@ -28,6 +28,8 @@ public class ZARR_DB {
 		
 		createTable(dbConnector);
 		
+		
+		//add your cities in here the same format I have
 		addCity("Paris", "France", "Ile-de-France", 48.85, 2.35);
 		addCity("Washington D.C.", "USA", "Null", 38.90, -77.03);
 		addCity("London", "England", "Greater London", 51.50, -0.12);

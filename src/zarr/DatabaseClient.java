@@ -30,16 +30,16 @@ public class DatabaseClient {
 		
 		
 		//add your cities in here the same format I have
-		addCity("Paris", "France", "Ile-de-France", 48.85, 2.35);
-		addCity("Washington D.C.", "USA", "Null", 38.90, -77.03);
-		addCity("London", "England", "Greater London", 51.50, -0.12);
-		addCity("Vactican City", "Vatican City State", "Null", 41.90, 12.45);
+		addCity("Paris", "France", null, 48.85, 2.35);
+		addCity("Washington D.C.", "USA", null, 38.90, -77.03);
+		addCity("London", "England", null, 51.50, -0.12);
+		addCity("Vactican City", "Vatican City State", null, 41.90, 12.45);
 		addCity("New York City", "USA", "New York", 40.71, -74.00);
-		addCity("St. Petersburg", "Russia", "Null", 59.93, 30.36);
-		addCity("Madrid", "Spain", "Central Spain", 40.41, -3.70);
-		addCity("Beijing", "China", "North China", 39.90, 116.40);
-		addCity("Cairo", "Egypt", "Northweastern", 30.04, 31.23);
-		addCity("Tokyo", "Japan", "Kanto", 35.67, 139.65);
+		addCity("St. Petersburg", "Russia", null, 59.93, 30.36);
+		addCity("Madrid", "Spain", null, 40.41, -3.70);
+		addCity("Beijing", "China", null, 39.90, 116.40);
+		addCity("Cairo", "Egypt", null, 30.04, 31.23);
+		addCity("Tokyo", "Japan", null, 35.67, 139.65);
 		
 		dbConnector.close();//close connection to database
 	}
@@ -47,7 +47,7 @@ public class DatabaseClient {
 	//function for creating a table using a Connection object as a parameter. 
 	//Will throw an error if it fails.
 	//DECIMAL(total digits, digits after decimal)
-	public static void createTable(Connection dbConnector) throws SQLException{
+	public void createTable(Connection dbConnector) throws SQLException{
 		//SQL queries stored as string variables
 		//"CREATE TABLE IF NOT EXISTS": sql command to create table if doesn't exist
 		//city_coordinates: name of table being created
@@ -55,7 +55,7 @@ public class DatabaseClient {
 				"id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, " +
 				"city VARCHAR(100) NOT NULL, " +
 				"country VARCHAR(100) NOT NULL, " +
-				"region VARCHAR(100) NULL, " +
+				"state VARCHAR(100) NULL, " +
 				"latitude DECIMAL(8, 2) NOT NULL," +
 				"longitude DECIMAL(9, 2) NOT NULL" +
 				")";
@@ -67,7 +67,7 @@ public class DatabaseClient {
 		createTableQuerySTMT.close();
 	}
 	
-	public static void addCity(String newCity, String newCountry, String newRegion, double newLatitude, double newLongitude) throws SQLException
+	public void addCity(String newCity, String newCountry, String newState, double newLatitude, double newLongitude) throws SQLException
 	{
 		//create a Connection object to access table
 		Properties dbCredentials = new Properties();
@@ -75,7 +75,7 @@ public class DatabaseClient {
 		dbCredentials.put("password", "panacea123");//store database password as panacea123
 		Connection dbConnector = DriverManager.getConnection(CONNECTION,dbCredentials);
 		
-		//first check if city is already in database using city, country, region
+		//first check if city is already in database using city, country, state
 		//The ?'s act as placeholders; first, second,
 		PreparedStatement ps = dbConnector.prepareStatement("SELECT * FROM city_coordinates WHERE "
 				+ "latitude = ? AND longitude = ?");
@@ -91,18 +91,18 @@ public class DatabaseClient {
 			System.out.println("City already in database.");
 		}else {
 			PreparedStatement insertSTMT = dbConnector.prepareStatement(
-					"INSERT INTO city_coordinates (city, country, region, latitude, longitude)"
+					"INSERT INTO city_coordinates (city, country, state, latitude, longitude)"
 					+ "VALUES(?,?,?,?,?)");
 		
 		
 			insertSTMT.setString(1, newCity);
 			insertSTMT.setString(2, newCountry);
 		
-			if(newRegion == null || newRegion.isEmpty()) {
+			if(newState == null || newState.isEmpty()) {
 				insertSTMT.setNull(3, Types.VARCHAR);
 			}else {
-				insertSTMT.setString(3, newRegion);
-			}//end region if/else
+				insertSTMT.setString(3, newState);
+			}//end state if/else
 		
 			insertSTMT.setDouble(4, newLatitude);
 			insertSTMT.setDouble(5, newLongitude);
@@ -118,18 +118,74 @@ public class DatabaseClient {
 		dbConnector.close();
 	}//end addCity method
 	
-	public static void findCoordinates(String city, String country, String region) throws SQLException {
-		//create a Connection object to access table
+	public double[] getCoordinates(String city, String country, String state) throws SQLException {
+		//create array to return coordinates
+		double[] coordinates = new double[2];
+		
 		Properties dbCredentials = new Properties();
 		dbCredentials.put("user", "root");//store database user as root
 		dbCredentials.put("password", "panacea123");//store database password as panacea123
 		Connection dbConnector = DriverManager.getConnection(CONNECTION,dbCredentials);
-				
-		//first check if city is already in database using city, country, region
-		//The ?'s act as placeholders; first, second,
-		PreparedStatement ps = dbConnector.prepareStatement("SELECT * FROM city_coordinates WHERE "
-				+ "city = ? AND country = ? AND (region = ? OR region IS Null)");	
+		
+		try {
+			String query = "SELECT latitude, longitude FROM city_coordinates WHERE city = ? AND country = ? AND (state = ? OR state IS Null)";
+			
+			PreparedStatement ps = dbConnector.prepareStatement(query);
+			
+			ps.setString(1, city);
+			ps.setString(2,  country);
+			ps.setString(3,  state);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			rs.next();
+			coordinates[0] = rs.getDouble("latitude");
+			coordinates[1] = rs.getDouble("longitude");
+			
+			rs.close();
+			ps.close();
+		}finally {
+			dbConnector.close();
+		}
+		return coordinates;
 	}
+	
+	
+	//search through database to see if city is already present using city, country, and state
+	public boolean findCity(String city, String country, String state) throws SQLException{
+		boolean cityFound = false;
+		
+		Properties dbCredentials = new Properties();
+		dbCredentials.put("user",  "root");//store database user as root
+		dbCredentials.put("password",  "panacea123"); //store database password as panacea123
+		Connection dbConnector = DriverManager.getConnection(CONNECTION, dbCredentials);
+		
+		
+		try {
+			String query = "SELECT * FROM city_coordinates WHERE "
+					+ "city = ? AND country = ? AND (state = ? OR state IS Null)";
+			
+			PreparedStatement ps = dbConnector.prepareStatement(query);
+			
+			ps.setString(1, city);
+			ps.setString(2,  country);
+			ps.setString(3,  state);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				cityFound = true;
+			}
+			
+			rs.close();
+			ps.close();
+		}finally {
+			if(dbConnector != null) {
+				dbConnector.close();
+			}
+		}// end of try/finally
+		return cityFound;
+	}//end of search function
 		
 
 }

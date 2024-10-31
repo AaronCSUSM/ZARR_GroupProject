@@ -25,7 +25,7 @@ public class Runner {
 		
 		double[] coordinates = new double[2];
 		try {
-			coordinates = db.getCoordinates("Tokyo", "Japan", null);
+			coordinates = db.getCoordinates("Paris", "France", null);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -33,6 +33,16 @@ public class Runner {
 		
 		System.out.println(coordinates[0]);
 		System.out.println(coordinates[1]);
+		
+		APIClient ac = new APIClient();
+		try {
+			coordinates = ac.geocodingRequest("New York City", "USA", "New York");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 		
 	}
 

@@ -30,16 +30,17 @@ public class DatabaseClient {
 		
 		
 		//add your cities in here the same format I have
-		addCity("Paris", "France", null, 48.85, 2.35);
-		addCity("Washington D.C.", "USA", null, 38.90, -77.03);
-		addCity("London", "England", null, 51.50, -0.12);
+		//make sure you get coordinates from the Google Maps API, so we're not getting slightly different numbers from different sources
+		addCity("Paris", "France", null, 48.86, 2.35);
+		addCity("Washington D.C.", "USA", null, 38.91, -77.04);
+		addCity("London", "England", null, 51.51, -0.13);
 		addCity("Vactican City", "Vatican City State", null, 41.90, 12.45);
-		addCity("New York City", "USA", "New York", 40.71, -74.00);
+		addCity("New York City", "USA", "New York", 40.71, -74.01);
 		addCity("St. Petersburg", "Russia", null, 59.93, 30.36);
-		addCity("Madrid", "Spain", null, 40.41, -3.70);
-		addCity("Beijing", "China", null, 39.90, 116.40);
-		addCity("Cairo", "Egypt", null, 30.04, 31.23);
-		addCity("Tokyo", "Japan", null, 35.67, 139.65);
+		addCity("Madrid", "Spain", null, 40.42, -3.70);
+		addCity("Beijing", "China", null, 39.90, 116.41);
+		addCity("Cairo", "Egypt", null, 30.04, 31.24);
+		addCity("Tokyo", "Japan", null, 35.68, 139.65);
 		
 		dbConnector.close();//close connection to database
 	}

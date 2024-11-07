@@ -30,7 +30,9 @@ public class DatabaseClient {
 		
 		
 		//add your cities in here the same format I have
+		//don't worry about region unless it is a state, then add the state, null for other countries
 		//make sure you get coordinates from the Google Maps API, so we're not getting slightly different numbers from different sources
+		//round them to two decimal places
 		addCity("Paris", "France", null, 48.86, 2.35);
 		addCity("Washington D.C.", "USA", null, 38.91, -77.04);
 		addCity("London", "England", null, 51.51, -0.13);

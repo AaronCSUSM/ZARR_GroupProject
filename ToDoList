@@ -6,7 +6,7 @@ Database
   Function: Retrieve coordinates from database (incomplete, Aaron)
 
 API
-  Function: send request for geocoding coordinates using city, country, region (if USA). (incomplete)
+  Function: send request for geocoding coordinates using city, country, region (if USA). (complete)
   Function: send request for locations of interest using city coordinates and category. (incomplete)
 
 GUI

@@ -44,6 +44,7 @@ public class DatabaseClient {
 		addCity("Cairo", "Egypt", null, 30.04, 31.24);
 		addCity("Tokyo", "Japan", null, 35.68, 139.65);
 		
+		
 		dbConnector.close();//close connection to database
 	}
 	

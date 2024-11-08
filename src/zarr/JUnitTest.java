@@ -82,10 +82,10 @@ class JUnitTest {
 	void testGetCoordinates() {
 		DatabaseClient db = new DatabaseClient();
 		
-		double[] expected1 = {35.67, 139.65};
-		double[] expected2 = {40.71, -74.00};
+		double[] expected1 = {35.68, 139.65};
+		double[] expected2 = {40.71, -74.01};
 		double[] expected3 = {59.93, 30.36};	
-		double[] expected4 = {30.04, 31.23};	
+		double[] expected4 = {30.04, 31.24};	
 		
 		double[] result1 = new double[2];
 		double[] result2 = new double[2];

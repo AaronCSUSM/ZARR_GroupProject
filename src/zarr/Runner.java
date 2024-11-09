@@ -31,17 +31,32 @@ public class Runner {
 			e.printStackTrace();
 		}
 		
+		System.out.println("Database coordinates retrieval.");
 		System.out.println(coordinates[0]);
 		System.out.println(coordinates[1]);
 		
 		APIClient ac = new APIClient();
+//		try {
+//			coordinates = ac.geocodingRequest("New York City", "USA", "New York");
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		System.out.println("Geocoding API coordinates retrieval.");
+//		System.out.println(coordinates[0]);
+//		System.out.println(coordinates[1]);
+		
+		LocDetails[] locArr = new LocDetails[20];
+		String category = "museums";
+		
 		try {
-			coordinates = ac.geocodingRequest("New York City", "USA", "New York");
+			locArr = ac.categoryRequest(51.51, -0.13, category);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
+		LocDetails.printLocDetails(locArr);
 		
 		
 	}

@@ -125,5 +125,67 @@ class JUnitTest {
 		System.out.println("end test 2");
 		
 	}//end testGetCoordinates
+	
+	void testCategoryRequests() {
+		//San Marcos, CA coordinates: 33.14, -117.17
+		//Madrid, Spain coordinates: 40.42, -3.70
+		//Miami, FL coordinates: 25.76, -80.19
+		
+		APIClient ac = new APIClient();
+		
+		String category1 = "musuem";
+		String category2 = "restaurant";
+		String category3 = "amusement parks";
+		
+		LocDetails[] result1 = new LocDetails[20];
+		LocDetails[] result2 = new LocDetails[20];
+		LocDetails[] result3 = new LocDetails[20];
+		
+		try {
+			result1 = ac.categoryRequest(33.14, -117.17, category1);
+			result2 = ac.categoryRequest(40.42, -3.70, category2);
+			result3 = ac.categoryRequest(25.76, -80.19, category3);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		assertNotNull(result1, "Category request test 1 failed.");
+		assertNotNull(result2, "Category request test 2 failed.");
+		assertNotNull(result3, "Category request test 3 failed.");
+		
+	}
+	
+	void testgeocodingRequest() {
+		//San Marcos, CA coordinates: 33.14, -117.17
+		//Madrid, Spain coordinates: 40.42, -3.70
+		//Miami, FL coordinates: 25.76, -80.19
+				
+		APIClient ac = new APIClient();
+		
+		double[] result1 = new double[2];
+		double[] result2 = new double[2];
+		double[] result3 = new double[2];
+		
+		try {
+			result1 = ac.geocodingRequest("San Marcos", "USA", "CA");
+			result2 = ac.geocodingRequest("Madrid", "Spain", null);
+			result3 = ac.geocodingRequest("Miami", "USA", "FL");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		double[] expected1 = {33.14, -117.17};
+		double[] expected2 = {40.42, -3.70};
+		double[] expected3 = {25.76, -80.19};
+		
+		assertArrayEquals(expected1, result1, "GeoRequest test 1 failed.");
+		assertArrayEquals(expected2, result2, "GeoRequest test 2 failed.");
+		assertArrayEquals(expected3, result3, "GeoRequest test 3 failed.");
+		
+	}
+		
+		
 
 }

@@ -49,7 +49,16 @@ public class DatabaseClient {
 		addCity("Athens", "Greece", null, 37.98, 23.73);
 		addCity("Bern", "Switzerland", null, 46.95, 7.45);
 		addCity("Manila", "Phillippines", null, 46.95, 7.45);
-		
+		addCity("Seoul", "South Korea", null, 37.56, 126.98);
+		addCity("Houston", "USA", "Texas", 29.76, -95.37);
+		addCity("Vancouver", "Canada", "British Columbia", 49.28, -123.12);
+		addCity("Copenhagen", "Denmark", null, 55.67, 12.57);
+		addCity("Rome", "Italy", null, 41.90, 12.48);
+		addCity("Mexico City", "Mexico", null, 19.43, -99.13);
+		addCity("Ottawa", "Canada", "Ontario", 45.42, -75.70);
+		addCity("Sao Paulo", "Brazil", null, -23.56, -46.64);
+		addCity("Johannesburg", "South Africa", null, -26.20, 28.03);
+		addCity("Delhi", "India", null, 28.70, 77.10);
 		
 		dbConnector.close();//close connection to database
 	}

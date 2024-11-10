@@ -83,7 +83,7 @@ public class APIClient {
 				+ "%2C%20" // ", "
 				+ longitude
 				//radius set to 100,000 meters (about 62 miles)
-				+ "&radius=100000&language=en&rankby=prominence&keyword="
+				+ "&radius=1000000&language=en&rankby=prominence&keyword="
 				+ category1;
 		
 		HttpResponse<JsonNode> response = Unirest.get(APIurl)
@@ -93,7 +93,7 @@ public class APIClient {
 				.asJson();
 		
 		
-		//convert API respons to one JSON object
+		//convert API response to one JSON object
 		JSONObject jsonResponse = response.getBody().getObject();
 		//results array will hold all locations found by api request
 		JSONArray results = jsonResponse.getJSONArray("results");
@@ -113,7 +113,7 @@ public class APIClient {
 		for(int i = 0; i < results.length(); i++) {
 			//new JSONobject to hold each location during each loop
 			JSONObject oneLoc = results.getJSONObject(i);
-			//new LocDetails object that will be updateed and added to array
+			//new LocDetails object that will be updated and added to array
 			LocDetails ld = new LocDetails();
 			
 			//everything should have name

@@ -33,6 +33,7 @@ public class DatabaseClient {
 		//don't worry about region unless it is a state, then add the state, null for other countries
 		//make sure you get coordinates from the Google Maps API, so we're not getting slightly different numbers from different sources
 		//round them to two decimal places
+		// (name, country, region, lat, long)
 		addCity("Paris", "France", null, 48.86, 2.35);
 		addCity("Washington D.C.", "USA", null, 38.91, -77.04);
 		addCity("London", "England", null, 51.51, -0.13);
@@ -43,7 +44,21 @@ public class DatabaseClient {
 		addCity("Beijing", "China", null, 39.90, 116.41);
 		addCity("Cairo", "Egypt", null, 30.04, 31.24);
 		addCity("Tokyo", "Japan", null, 35.68, 139.65);
-		
+		addCity("San Diego", "USA", "California", 32.72, -117.16);
+		addCity("Amsterdam", "Netherlands", null, 52.37, 4.90);
+		addCity("Athens", "Greece", null, 37.98, 23.73);
+		addCity("Bern", "Switzerland", null, 46.95, 7.45);
+		addCity("Manila", "Phillippines", null, 46.95, 7.45);
+		addCity("Seoul", "South Korea", null, 37.56, 126.98);
+		addCity("Houston", "USA", "Texas", 29.76, -95.37);
+		addCity("Vancouver", "Canada", "British Columbia", 49.28, -123.12);
+		addCity("Copenhagen", "Denmark", null, 55.67, 12.57);
+		addCity("Rome", "Italy", null, 41.90, 12.48);
+		addCity("Mexico City", "Mexico", null, 19.43, -99.13);
+		addCity("Ottawa", "Canada", "Ontario", 45.42, -75.70);
+		addCity("Sao Paulo", "Brazil", null, -23.56, -46.64);
+		addCity("Johannesburg", "South Africa", null, -26.20, 28.03);
+		addCity("Delhi", "India", null, 28.70, 77.10);
 		
 		dbConnector.close();//close connection to database
 	}

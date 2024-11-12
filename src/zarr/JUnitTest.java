@@ -74,7 +74,7 @@ class JUnitTest {
 		assertEquals(expected3, result3, "City with those properties doesn't exist.");
 		assertEquals(expected4, result4, "City with those properties doesn't exist.");
 		
-		System.out.println("End of test 1");
+		System.out.println("Find city in database test passed.");
 		
 	}//end findCity test
 	
@@ -122,10 +122,11 @@ class JUnitTest {
 		assertArrayEquals(expected3, result3, "Incorrect coordinates for test3.");
 		assertArrayEquals(expected4, result4, "Incorrect coordinates for test4.");
 		
-		System.out.println("end test 2");
+		System.out.println("Database coordinates retrieval test passed.");
 		
 	}//end testGetCoordinates
 	
+	@Test
 	void testCategoryRequests() {
 		//San Marcos, CA coordinates: 33.14, -117.17
 		//Madrid, Spain coordinates: 40.42, -3.70
@@ -154,8 +155,10 @@ class JUnitTest {
 		assertNotNull(result2, "Category request test 2 failed.");
 		assertNotNull(result3, "Category request test 3 failed.");
 		
+		System.out.println("Category API test passed.");
 	}
 	
+	@Test
 	void testgeocodingRequest() {
 		//San Marcos, CA coordinates: 33.14, -117.17
 		//Madrid, Spain coordinates: 40.42, -3.70
@@ -183,6 +186,7 @@ class JUnitTest {
 		assertArrayEquals(expected1, result1, "GeoRequest test 1 failed.");
 		assertArrayEquals(expected2, result2, "GeoRequest test 2 failed.");
 		assertArrayEquals(expected3, result3, "GeoRequest test 3 failed.");
+		System.out.println("Geocoding test passed.");
 		
 	}
 		

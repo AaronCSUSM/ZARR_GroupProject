@@ -5,6 +5,7 @@ import java.sql.SQLException;
 public class Runner {
 
 	public static void main(String[] args) {
+		GUI guiclient = new GUI();
 		DatabaseClient db = new DatabaseClient();
 		//README: run this the first time to initialize database after adding your cities to DatabaseClient class
 		try {
@@ -36,16 +37,16 @@ public class Runner {
 		System.out.println(coordinates[1]);
 		
 		APIClient ac = new APIClient();
-//		try {
-//			coordinates = ac.geocodingRequest("New York City", "USA", "New York");
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
-//		System.out.println("Geocoding API coordinates retrieval.");
-//		System.out.println(coordinates[0]);
-//		System.out.println(coordinates[1]);
+		try {
+			coordinates = ac.geocodingRequest("San Marcos", "USA", "CA");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println("Geocoding API coordinates retrieval.");
+		System.out.println(coordinates[0]);
+		System.out.println(coordinates[1]);
 		
 		LocDetails[] locArr = new LocDetails[20];
 		String category = "museums";

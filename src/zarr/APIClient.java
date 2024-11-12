@@ -17,6 +17,10 @@ public class APIClient {
 	public double[] geocodingRequest(String city, String country, String state) throws Exception{
 		double[] coordinates = new double[2];
 		
+		if(state == null) {
+			state = "";
+		}
+		
 		String city1 = city.replaceAll(" ", "%20");
 		String country1 = country.replaceAll(" ", "%20");
 		String state1 = state.replaceAll(" ", "%20");
@@ -56,8 +60,8 @@ public class APIClient {
 	    	System.out.println("Location not found.");  
 	    }
 	    
-	    System.out.println("Latitude: " + coordinates[0]);
-	    System.out.println("Longitude: " + coordinates[1]);
+	    //System.out.println("Latitude: " + coordinates[0]);
+	    //System.out.println("Longitude: " + coordinates[1]);
 	    
 		//System.out.println("Geocoding Response finished.");
 		

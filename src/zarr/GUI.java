@@ -10,9 +10,14 @@ public class GUI extends JFrame {
 	private JPanel mainPanel; //the main panel that holds all other panels
 	private CardLayout cardLayout; //cardlayout is for switching between different views (the panels)
 	
+	private APIClient ac;
+	private DatabaseClient dc;
 	
 	//the constructor to set tup the frame and panels
-	public GUI() {
+	public GUI(APIClient ac, DatabaseClient dc) {
+		this.ac = ac;
+		this.dc = dc;
+		
 		setTitle("Tourist Info - Home"); //setting up the title of the window
 		setSize(600, 800); //size of the window
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //closes the application when the window is closed
@@ -31,7 +36,7 @@ public class GUI extends JFrame {
 	    mainPanel.add(createPanelWithBackButton(new parkPanel(), "Parks"), "Parks");
 	    mainPanel.add(createPanelWithBackButton(new museumPanel(), "Museums"), "Museums");
 	    mainPanel.add(createPanelWithBackButton(new landmarkPanel(), "Landmarks"), "Landmarks");
-	    mainPanel.add(createPanelWithBackButton(new searchPanel(), "Search"), "Search");
+	    mainPanel.add(createPanelWithBackButton(new searchPanel(this.ac, this.dc), "Search"), "Search");
 		
 		add(mainPanel, BorderLayout.CENTER); //adds the main panel to the center of the frame
 		setVisible(true); //makes the window visible
@@ -161,8 +166,8 @@ public class GUI extends JFrame {
         JOptionPane.showMessageDialog(this, "Opening: " + pageName, "Page Navigation", JOptionPane.INFORMATION_MESSAGE);
     }*/
     
-	public static void main(String[] args){
-		new GUI();
-	}
+	//public static void main(String[] args){
+		//new GUI(this.ac, this.dc);
+	//}
 }
 

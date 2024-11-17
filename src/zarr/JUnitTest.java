@@ -20,7 +20,7 @@ class JUnitTest {
 	}
 
 	@AfterAll
-	static void tearDownAfterClass() throws 909Exception {
+	static void tearDownAfterClass() throws Exception {
 	}
 
 	@BeforeEach

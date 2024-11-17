@@ -5,7 +5,9 @@ import java.sql.SQLException;
 public class Runner {
 
 	public static void main(String[] args) {
-		GUI guiclient = new GUI();
+		APIClient ac = new APIClient();
+		DatabaseClient dc = new DatabaseClient();
+		GUI guiclient = new GUI(ac, dc);
 		DatabaseClient db = new DatabaseClient();
 		//README: run this the first time to initialize database after adding your cities to DatabaseClient class
 		try {
@@ -26,7 +28,7 @@ public class Runner {
 		
 		double[] coordinates = new double[2];
 		try {
-			coordinates = db.getCoordinates("Paris", "France", null);
+			coordinates = db.getCoordinates("Mexico City", "Mexico", null);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -36,7 +38,9 @@ public class Runner {
 		System.out.println(coordinates[0]);
 		System.out.println(coordinates[1]);
 		
-		APIClient ac = new APIClient();
+		
+		/*
+		
 		try {
 			coordinates = ac.geocodingRequest("San Marcos", "USA", "CA");
 		} catch (Exception e) {
@@ -58,7 +62,7 @@ public class Runner {
 		}
 		
 		LocDetails.printLocDetails(locArr);
-		
+		*/
 		
 	}
 

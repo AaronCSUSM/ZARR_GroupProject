@@ -72,10 +72,14 @@ public class LocDetails {
 				System.out.println("LOCATION " + (i+1));
 				System.out.println("NAME: " + loc[i].getName());
 				System.out.println("STATUS: " + loc[i].getStatus());
-				System.out.println("PHOTO REFERENCE: " + loc[i].getPhotoReference());
-				System.out.println("PLACE ID: " + loc[i].getPlaceID());
-				System.out.println("RATING: " + loc[i].getRating());
-				System.out.println("PRICE LEVEL: " + loc[i].getPriceLevel());
+				//System.out.println("PHOTO REFERENCE: " + loc[i].getPhotoReference());
+				//System.out.println("PLACE ID: " + loc[i].getPlaceID());
+				if(loc[i].getRating() != -999) {
+					System.out.println("RATING: " + loc[i].getRating());
+				}
+				if(loc[i].getPriceLevel() != -999) {
+					System.out.println("PRICE LEVEL: " + loc[i].getPriceLevel());
+				}
 				System.out.println("");
 			}
 			

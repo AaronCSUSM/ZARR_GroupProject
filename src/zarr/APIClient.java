@@ -41,14 +41,15 @@ public class APIClient {
 				.header("x-rapidapi-host", "google-map-places.p.rapidapi.com")
 				//.asString();
 				.asJson();
-
+		//convert json response into a json object
 	    JSONObject jsonResponse = new JSONObject(response.getBody().toString());
 	      
+	    //if results is less than 0, then there was no valid location
 	    if(jsonResponse.getJSONArray("results").length() > 0) {
 	    	JSONObject locationData = jsonResponse.getJSONArray("results")
-	    			.getJSONObject(0)
-	    			.getJSONObject("geometry")
-	    			.getJSONObject("location");
+	    			.getJSONObject(0)//access first result
+	    			.getJSONObject("geometry")//go into geometry
+	    			.getJSONObject("location");//go into location
 	    		  
 	    	coordinates[0] = locationData.getDouble("lat");
 	    	coordinates[1] = locationData.getDouble("lng");

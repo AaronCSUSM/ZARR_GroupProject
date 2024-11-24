@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 
 public class searchPanel extends JPanel{
@@ -89,24 +90,75 @@ public class searchPanel extends JPanel{
 				
 				if(cityField.getText().isEmpty() || countryField.getText().isEmpty() || catField.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(searchPanel.this, "Please enter a city, country, and category.");
-				}
-				String userCity = cityField.getText();
-				String userCountry = countryField.getText();
-				String userState = stateField.getText();
-				String userCat = catField.getText();
-				
+				}else {
+					String userCity = cityField.getText();
+					String userCountry = countryField.getText();
+					String userCat = catField.getText();
+					if(stateField.getText().isEmpty()) {
+						performSearch(userCity, userCountry, null, userCat);
+					}else {
+						String userState = stateField.getText();
+						performSearch(userCity, userCountry, userState, userCat);
+					}//end inner if
+				}//end if
 				
 				//if(cityField.isEmpty()) {
 					//performSearch(searchText);
 				//}else {
 					//JOptionPane.showMessageDialog(searchPanel.this, "Please enter a search term.");
 				//}
-			}
-		});
-	}
+				
+			}//end actionPerformed
+		});//end addActionListener
+	}//end searchPanel
 	
-	private void performSearch(String searchText) {
+	private void performSearch(String city, String country, String state, String category) {
 		//placeholder for api call logic
-		resultsArea.setText("Searching for: " + searchText + "\nResults:\n1. Example Result 1\n2. Example Result 2");
-	}
-}
+		//resultsArea.setText("Searching for: " + searchText + "\nResults:\n1. Example Result 1\n2. Example Result 2");
+		//boolean cityFound = false;
+		double[]c = new double[2];
+		LocDetails[] ld = new LocDetails[20];
+		
+		try {
+			if(dc.findCity(city, country, state)) {
+				//retrieve coordinates from database
+				c = dc.getCoordinates(city, country, state);
+				//dc.addCity(city, country, state, c[0],  c[1]);
+				System.out.println("Latitude: " + c[0]);
+				System.out.println("Longitude: " + c[1]);
+				//perform the API request
+				System.out.println("Performing search for " + city + ", " + country + " with " + category + " as keyword.");
+				try {
+					ld = ac.categoryRequest(c[0],  c[1],  category);
+					LocDetails.printLocDetails(ld);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}else {
+				try {
+					c = ac.geocodingRequest(city, country, state);
+					System.out.println("Latitude: " + c[0]);
+					System.out.println("Longitude: " + c[1]);
+					dc.addCity(city, country, state, c[0],  c[1]);
+					System.out.println("Performing search for " + city + ", " + country + " with " + category + " as keyword.");
+					try {
+						ld = ac.categoryRequest(c[0],  c[1],  category);
+						LocDetails.printLocDetails(ld);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//System.out.println("Search results: " + cityFound);
+		
+	}//end performSearch
+}//end searchPanel

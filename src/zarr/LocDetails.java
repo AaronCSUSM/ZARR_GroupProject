@@ -84,6 +84,49 @@ public class LocDetails {
 			}
 			
 		}
-	}
+	}//end printLocDetails
+	
+//	public static String LocDetailsToString(LocDetails[] ld) {
+//		String str = "";
+//		for(int i = 0; i < ld.length; i++) {
+//			if(ld[i] != null) {
+//				str = str + str + "LOCATION " + (i+1) + "\n" +
+//						"NAME: " + ld[i].getName() + "\n" +
+//						"STATUS: " + ld[i].getStatus() + "\n";
+//				if(ld[i].getRating() != -999) {
+//					str = str + "RATING: " + ld[i].getRating() + "\n";
+//				}
+//				if(ld[i].getPriceLevel() != -999) {
+//					str = str + "PRICE LEVEL: " + ld[i].getPriceLevel() + "\n";
+//				}
+//				str = str + "\n";
+//			}
+//		}//end for loop
+//		
+//		return str;
+//	}//end LocDetailsToString
+	
+	public static String LocDetailsToString(LocDetails[] ld) {
+		StringBuilder sb = new StringBuilder();
+		for(int i = 0; i < ld.length; i++) {
+			if(ld[i] != null) {
+				sb.append(String.format("LOCATION: %d\n", i+1));
+				
+				sb.append(String.format("%-15s %s\n", "NAME:", ld[i].getName()));
+				sb.append(String.format("%-15s %s\n", "STATUS:", ld[i].getStatus()));
+				
+				if(ld[i].getRating() != -999) {
+					sb.append(String.format("%-15s %.1f\n", "RATING:", ld[i].getRating()));
+				}
+				if(ld[i].getPriceLevel() != -999) {
+					sb.append(String.format("%-15s %d\n", "PRICE LEVEL:", ld[i].getPriceLevel()));
+				}
+				sb.append("\n");
+			}
+			
+		}//end for loop
+		String str = sb.toString();
+		return str;
+	}//end LocDetailsToString
 	
 }

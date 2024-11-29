@@ -119,6 +119,7 @@ public class LocDetails {
 					sb.append(String.format("%-15s %.1f\n", "RATING:", ld[i].getRating()));
 				}
 				if(ld[i].getPriceLevel() != -999) {
+					//maybe append picture of dollar sign
 					sb.append(String.format("%-15s %d\n", "PRICE LEVEL:", ld[i].getPriceLevel()));
 				}
 				sb.append("\n");

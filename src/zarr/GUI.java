@@ -19,7 +19,7 @@ public class GUI extends JFrame {
 		this.dc = dc;
 		
 		setTitle("Tourist Info - Home"); //setting up the title of the window
-		setSize(600, 800); //size of the window
+		setSize(700, 800); //size of the window  //600, 800
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //closes the application when the window is closed
 		//setLayout(new BorderLayout());
 		

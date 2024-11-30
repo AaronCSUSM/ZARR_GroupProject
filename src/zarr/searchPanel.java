@@ -187,6 +187,8 @@ public class searchPanel extends JPanel{
 		this.catField.setText(category);
 		if(state != null) {
 			this.stateField.setText(state);
+		}else {
+			this.stateField.setText("");
 		}
 	}
 }//end searchPanel

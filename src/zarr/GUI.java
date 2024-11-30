@@ -32,11 +32,13 @@ public class GUI extends JFrame {
 		mainPanel.add(homePanel, "Home"); //adds home panel to cardlayout with the name "home"
 		
 		//adding other panels (5 best ...)
+		searchPanel sp = new searchPanel(this.ac, this.dc);
+		mainPanel.add(createPanelWithBackButton(sp, "Search"), "Search");
 		mainPanel.add(createPanelWithBackButton(new beachPanel(), "Beaches"), "Beaches");
 	    mainPanel.add(createPanelWithBackButton(new parkPanel(), "Parks"), "Parks");
-	    mainPanel.add(createPanelWithBackButton(new museumPanel(), "Museums"), "Museums");
+	    mainPanel.add(createPanelWithBackButton(new museumPanel(sp, cardLayout, mainPanel), "Museums"), "Museums");
 	    mainPanel.add(createPanelWithBackButton(new landmarkPanel(), "Landmarks"), "Landmarks");
-	    mainPanel.add(createPanelWithBackButton(new searchPanel(this.ac, this.dc), "Search"), "Search");
+	    //mainPanel.add(createPanelWithBackButton(new searchPanel(this.ac, this.dc), "Search"), "Search");
 		
 		add(mainPanel, BorderLayout.CENTER); //adds the main panel to the center of the frame
 		setVisible(true); //makes the window visible

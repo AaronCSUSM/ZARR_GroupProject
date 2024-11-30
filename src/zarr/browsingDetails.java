@@ -13,6 +13,7 @@ public class browsingDetails {
 	private String pictureURL;
 	private String description;
 	
+	
 	public browsingDetails(String n, String city, String country, String st, String url, String desc) {
 		this.name = n;
 		this.city = city;

@@ -9,7 +9,15 @@ import javax.swing.JPanel;
 
 public class museumPanel extends JPanel{
 	
-	public museumPanel() {
+	private searchPanel SearchPanel;
+	private CardLayout cardLayout;
+	private JPanel mainPanel;
+	
+	public museumPanel(searchPanel sp, CardLayout cl, JPanel mp) {
+		
+		this.SearchPanel = sp;
+		this.cardLayout = cl;
+		this.mainPanel = mp;
 		
 		//create layout for panel
 		setLayout(new BorderLayout());
@@ -110,6 +118,11 @@ public class museumPanel extends JPanel{
 		JLabel locationL = new JLabel("LOCATION: " + locStr);
 		JLabel descriptionL = new JLabel("<html><div style='width:250px;'>DESCRIPTION:  "+ location.getDescription()+"</div></html>");
 		JButton exploreButton = new JButton("Explore " + location.getCity());
+		
+		exploreButton.addActionListener(e->{
+			SearchPanel.setSearchFields(location.getCity(), location.getCountry(), location.getState(), "museum");
+			this.cardLayout.show(mainPanel, "Search");
+		});
 		
 		leftPanel.add(nameL);
 		leftPanel.add(locationL);

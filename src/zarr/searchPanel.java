@@ -180,4 +180,13 @@ public class searchPanel extends JPanel{
 		//System.out.println("Search results: " + cityFound);
 		return ld;
 	}//end performSearch
+	
+	public void setSearchFields(String city, String country, String state, String category) {
+		this.cityField.setText(city);
+		this.countryField.setText(country);
+		this.catField.setText(category);
+		if(state != null) {
+			this.stateField.setText(state);
+		}
+	}
 }//end searchPanel

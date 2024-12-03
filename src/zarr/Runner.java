@@ -8,13 +8,21 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class Runner {
 
 	public static void main(String[] args) {
-		APIClient ac = new APIClient();
-		DatabaseClient dc = new DatabaseClient();
-		GUI guiclient = new GUI();
-		guiclient.createGUI();
+		 APIClient ac = new APIClient();
+	        DatabaseClient dc = new DatabaseClient();
+
+	        // Creating GUI with required clients
+	        GUI guiclient = new GUI(ac, dc);
+	        //guiclient.createGUI();
+
+	        
+	        try {
+	            dc.deleteCity("San Mcos");
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
 	}
 }
-		 
 //		DatabaseClient db = new DatabaseClient();
 //		//README: run this the first time to initialize database after adding your cities to DatabaseClient class
 //		try {

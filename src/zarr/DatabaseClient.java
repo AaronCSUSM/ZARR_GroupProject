@@ -206,5 +206,31 @@ public class DatabaseClient {
 		return cityFound;
 	}//end of search function
 		
-
+	public boolean deleteCity(String target) throws SQLException {
+		
+		boolean removed = false;
+	
+		Properties dbCredentials = new Properties();
+		dbCredentials.put("user",  "root");//store database user as root
+		dbCredentials.put("password",  "panacea123"); //store database password as panacea123
+		Connection dbConnector = DriverManager.getConnection(CONNECTION, dbCredentials);
+		
+		String query = "DELETE FROM city_coordinates WHERE city = ?";
+			
+		PreparedStatement ps = dbConnector.prepareStatement(query);
+			
+		ps.setString(1, target);
+			
+		int deletedRows = ps.executeUpdate();
+		
+		if(deletedRows > 0) {
+			removed = true;
+		}
+		
+		
+		ps.close();
+		dbConnector.close();
+		
+		return removed;
+	}
 }

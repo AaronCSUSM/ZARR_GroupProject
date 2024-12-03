@@ -1,13 +1,20 @@
 package zarr;
 
 import java.sql.SQLException;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 
 public class Runner {
 
 	public static void main(String[] args) {
 		APIClient ac = new APIClient();
 		DatabaseClient dc = new DatabaseClient();
-		GUI guiclient = new GUI(ac, dc);
+		GUI guiclient = new GUI();
+		guiclient.createGUI();
+	}
+}
+		 
 //		DatabaseClient db = new DatabaseClient();
 //		//README: run this the first time to initialize database after adding your cities to DatabaseClient class
 //		try {
@@ -71,6 +78,5 @@ public class Runner {
 //		LocDetails.printLocDetails(locArr);
 		
 		
-	}
 
-}
+

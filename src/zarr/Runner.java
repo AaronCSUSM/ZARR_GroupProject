@@ -8,6 +8,12 @@ public class Runner {
 		APIClient ac = new APIClient();
 		DatabaseClient dc = new DatabaseClient();
 		GUI guiclient = new GUI(ac, dc);
+		try {
+			dc.deleteCity("San Mcos");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 //		DatabaseClient db = new DatabaseClient();
 //		//README: run this the first time to initialize database after adding your cities to DatabaseClient class
 //		try {

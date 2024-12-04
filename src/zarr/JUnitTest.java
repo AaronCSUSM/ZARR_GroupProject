@@ -190,6 +190,25 @@ class JUnitTest {
 		
 	}
 		
+	@Test
+	void testRoundingFunction() {
 		
-
+		APIClient ac = new APIClient();
+		
+		double num1 = 8.9945;
+		double num2 = 8.2699;
+		
+		double expected1 = 8.99;
+		double expected2 = 8.27;
+		
+		double actual1;
+		double actual2;
+		
+		actual1 = ac.roundCoordinates(num1);
+		actual2 = ac.roundCoordinates(num2);
+		
+		assertEquals(expected1, actual1, "Rounding error.");
+		assertEquals(expected2, actual2, "Rounding error.");
+	}
+	
 }

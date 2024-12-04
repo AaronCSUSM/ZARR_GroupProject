@@ -15,6 +15,7 @@ import javax.swing.JPanel;
  */
 public class museumPanel extends JPanel{
 	
+	//searchPanel, cardLayout, and mainPanel added to each browsing panel so we could move between them more easily
 	private searchPanel SearchPanel;
 	private CardLayout cardLayout;
 	private JPanel mainPanel;
@@ -36,7 +37,8 @@ public class museumPanel extends JPanel{
 		
 		//header for panel
 		JLabel headerLabel = new JLabel("Most Popular Museums to Visit", JLabel.CENTER); //centers this
-		headerLabel.setFont(new Font("Arial", Font.BOLD, 24)); //set the font of it
+		//headerLabel.setFont(new Font("Arial", Font.BOLD, 24)); //set the font of it
+		headerLabel.setFont(new Font("Edwardian Script ITC", Font.BOLD, 50)); // Slightly larger, bold font
 
 		//add to panel layout (what to add, where to add)
 		add(headerLabel, BorderLayout.NORTH);
@@ -50,6 +52,7 @@ public class museumPanel extends JPanel{
 		detailsPanel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));	
 		
 		//public browsingDetails(String n, String city, String country, String st, String url, String desc)	
+		//photo source added to reference pictures
 		browsingDetails[] locations = new browsingDetails[5];
 		locations[0] = new browsingDetails(
 				"Louvre Museum",
@@ -103,13 +106,16 @@ public class museumPanel extends JPanel{
 				"Hugo Schneider, Wikipedia"
 				
 				);
-				
+		
+		//loop through the locations panel and create a panel for each locations object and add that panel to the detailsPanel
 		for(int i = 0; i < 5; i++) {
 			detailsPanel.add(createLocationsPanel(locations[i]));
+			//add some spacing between each panel
 			detailsPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 		}
 		
 		//add(detailsPanel, BorderLayout.CENTER);
+		//add a scroll bar to the panel
 		JScrollPane scrollPane = new JScrollPane(detailsPanel);
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -125,27 +131,32 @@ public class museumPanel extends JPanel{
 	 */
 	public JPanel createLocationsPanel(browsingDetails location) {
 		
+		//String of each location stored in locStr
 		String locStr = location.toString();
 		
 		JPanel locationPanel = new JPanel();
 		locationPanel.setLayout(new BoxLayout(locationPanel, BoxLayout.X_AXIS));
 		//locationPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		
+		//left panel will hold the labels and information about each location
 		JPanel leftPanel = new JPanel();
-		leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
-		leftPanel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+		leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));//stack components vertically
+		leftPanel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));//add spacing around edges of panel
 		
+		//add the components needed for the left panel
 		JLabel nameL = new JLabel("NAME: " + location.getName());
 		JLabel locationL = new JLabel("LOCATION: " + locStr);
 		JLabel descriptionL = new JLabel("<html><div style='width:250px;'>DESCRIPTION:  "+ location.getDescription()+"</div></html>");
 		JLabel photoSource = new JLabel("PHOTO SOURCE: " + location.getPhotoSource());
 		JButton exploreButton = new JButton("Explore " + location.getCity());
 		
+		//clicking the explore buttons will prefill the fields in the search panel
 		exploreButton.addActionListener(e->{
 			SearchPanel.setSearchFields(location.getCity(), location.getCountry(), location.getState(), "museum");
 			this.cardLayout.show(mainPanel, "Search");
 		});
 		
+		//add each component to the leftPanel
 		leftPanel.add(nameL);
 		leftPanel.add(locationL);
 		leftPanel.add(descriptionL);
@@ -153,17 +164,21 @@ public class museumPanel extends JPanel{
 		leftPanel.add(Box.createRigidArea(new Dimension(0,10)));
 		leftPanel.add(exploreButton);
 		
+		//label for the picture
 		JLabel picture = location.displayImage();
-		//JPanel rightPanel = location.displayImage();
-		picture.add(location.displayImage());
+		//adds the picture via its url
+		//picture.add(location.displayImage());
 		
+		//ensure leftPanel and picture have proper alignment
 		leftPanel.setAlignmentY(Component.TOP_ALIGNMENT);
 		picture.setAlignmentY(Component.TOP_ALIGNMENT);
 		
+		//add the leftPanel and picture panel to the locationPanel
 		locationPanel.add(leftPanel);
 		locationPanel.add(Box.createRigidArea(new Dimension(0,10)));
 		locationPanel.add(picture);
 		
+		//return individual location panel
 		return locationPanel;
 	}
 }

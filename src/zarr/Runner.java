@@ -10,6 +10,7 @@ import javax.swing.UnsupportedLookAndFeelException;
  * @version 12/2/24
  *
  */
+//runner class is entry point of the program, gets everything running
 public class Runner {
 	
 	/**
@@ -17,21 +18,20 @@ public class Runner {
 	 * @param args The command line arguments
 	 */
 	public static void main(String[] args) {
-		 APIClient ac = new APIClient();
-	        DatabaseClient dc = new DatabaseClient();
+		 APIClient ac = new APIClient();//object for interacting with API
+	     DatabaseClient dc = new DatabaseClient();//object for interacting with database
 
-	        // Creating GUI with required clients
-	        GUI guiclient = new GUI(ac, dc);
-	        //guiclient.createGUI();
+	     // Creating GUI with required clients
+	     GUI guiclient = new GUI(ac, dc);
+	}//end main
+}//end runner
 
-	        
-	        try {
-	            dc.deleteCity("San Mcos");
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
-	}
-}
+//
+//try {
+//    dc.deleteCity("San Mcos");
+//} catch (SQLException e) {
+//    e.printStackTrace();
+//}
 //		DatabaseClient db = new DatabaseClient();
 //		//README: run this the first time to initialize database after adding your cities to DatabaseClient class
 //		try {

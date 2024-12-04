@@ -26,8 +26,8 @@ public class GUI extends JFrame {
 	private JPanel mainPanel; //the main panel that holds all other panels
 	private CardLayout cardLayout; //cardlayout is for switching between different views (the panels)
 	
-	private APIClient ac;
-	private DatabaseClient dc;
+	private APIClient ac;//used to make buttons work 
+	private DatabaseClient dc;//used to make buttons work
 	
 	/**
 	 * Constructor to set up the frame and panels for GUI
@@ -35,13 +35,13 @@ public class GUI extends JFrame {
 	 * @param dc Database client object
 	 */
 	public GUI(APIClient ac, DatabaseClient dc) {
+		//pass arguments to class
 		this.ac = ac;
 		this.dc = dc;
 		
 		setTitle("DiscoverEase - Home"); //setting up the title of the window
 		setSize(900, 650); //size of the window  //600, 800
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //closes the application when the window is closed
-		//setLayout(new BorderLayout());
 		
 		//initializes the card layout and the main panel that holds different panels
 		cardLayout = new CardLayout();
@@ -52,6 +52,7 @@ public class GUI extends JFrame {
 		mainPanel.add(homePanel, "Home"); //adds home panel to cardlayout with the name "home"
 		
 		//adding other panels (5 best ...)
+		//cardLayout and mainPanel passed to each panel so they can navigate back and forth
 		searchPanel sp = new searchPanel(this.ac, this.dc);
 		mainPanel.add(createPanelWithBackButton(sp, "Search"), "Search");
 		mainPanel.add(createPanelWithBackButton(new beachPanel(sp, cardLayout, mainPanel), "Beaches"), "Beaches");

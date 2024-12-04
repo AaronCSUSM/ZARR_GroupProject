@@ -32,14 +32,13 @@ public class DatabaseClient {
 		Statement dbStatement = dbConnector.createStatement();
 		System.out.println("It works. Connected");
 		
+		//creates the table when run first time
 		createTable(dbConnector);
 		
 		
-		//add your cities in here the same format I have
-		//don't worry about region unless it is a state, then add the state, null for other countries
-		//make sure you get coordinates from the Google Maps API, so we're not getting slightly different numbers from different sources
-		//round them to two decimal places
+		
 		// (name, country, region, lat, long)
+		//starting data for testing and display purposes
 		addCity("Paris", "France", null, 48.86, 2.35);
 		addCity("Washington D.C.", "USA", null, 38.91, -77.04);
 		addCity("London", "England", null, 51.51, -0.13);
@@ -89,11 +88,11 @@ public class DatabaseClient {
 				"longitude DECIMAL(9, 2) NOT NULL" +
 				")";
 		
+		//create the statement and execute it
 		Statement createTableQuerySTMT = dbConnector.createStatement();
 		createTableQuerySTMT.executeUpdate(createTableSQLquery);
-		//System.out.println("It worked, probably.");
 		
-		createTableQuerySTMT.close();
+		createTableQuerySTMT.close();//close connection
 	}
 	
 	/**
@@ -105,6 +104,8 @@ public class DatabaseClient {
 	 * @param newLongitude
 	 * @throws SQLException
 	 */
+	
+	//adds a new city, in hindsight should have used class object as a parameter for cleaner code
 	public void addCity(String newCity, String newCountry, String newState, double newLatitude, double newLongitude) throws SQLException
 	{
 		//create a Connection object to access table
@@ -132,24 +133,27 @@ public class DatabaseClient {
 					"INSERT INTO city_coordinates (city, country, state, latitude, longitude)"
 					+ "VALUES(?,?,?,?,?)");
 		
-		
+			//every input should have at least a city, country, and coordinates
 			insertSTMT.setString(1, newCity);
 			insertSTMT.setString(2, newCountry);
 		
+			//state is optional so could be null
 			if(newState == null || newState.isEmpty()) {
 				insertSTMT.setNull(3, Types.VARCHAR);
 			}else {
 				insertSTMT.setString(3, newState);
 			}//end state if/else
 		
+			
 			insertSTMT.setDouble(4, newLatitude);
 			insertSTMT.setDouble(5, newLongitude);
 		
-		
+			
+			//execute the update query, adding a new city to the database
 			insertSTMT.executeUpdate();
 			System.out.println("New city added to database.");
 		
-			insertSTMT.close();
+			insertSTMT.close();//close the PreparedStatement object
 		}//end if/else
 		ps.close();
 		rs.close();
@@ -164,35 +168,46 @@ public class DatabaseClient {
 	 * @return coordinates
 	 * @throws SQLException
 	 */
+	//retrives coordinates for cities already in database
 	public double[] getCoordinates(String city, String country, String state) throws SQLException {
 		//create array to return coordinates
 		double[] coordinates = new double[2];
 		
+		//set up the properties for the database connection
 		Properties dbCredentials = new Properties();
 		dbCredentials.put("user", "root");//store database user as root
 		dbCredentials.put("password", "panacea123");//store database password as panacea123
 		Connection dbConnector = DriverManager.getConnection(CONNECTION,dbCredentials);
 		
+		//attempts to retrieve the coordinates associates with the city, country, and state
 		try {
 			String query = "SELECT latitude, longitude FROM city_coordinates WHERE city = ? AND country = ? AND (state = ? OR state IS Null)";
 			
+			//create a preparedstatement to execute the query
 			PreparedStatement ps = dbConnector.prepareStatement(query);
 			
+			//fill in query placeholders, avoids SQL injection attacks
 			ps.setString(1, city);
 			ps.setString(2,  country);
 			ps.setString(3,  state);
 			
+			//execute query using prepared statement and assign the return to a resultset object
 			ResultSet rs = ps.executeQuery();
 			
+			//should always have a result as database will be search before retrieving coordinates
 			rs.next();
+			//store double from latitude column
 			coordinates[0] = rs.getDouble("latitude");
+			//store double from longitude column into coordinates array
 			coordinates[1] = rs.getDouble("longitude");
 			
+			//close connections
 			rs.close();
 			ps.close();
 		}finally {
 			dbConnector.close();
 		}
+		//return the array with the coordinates
 		return coordinates;
 	}
 	
@@ -206,31 +221,38 @@ public class DatabaseClient {
 	 * @return cityFound to be searched
 	 * @throws SQLException
 	 */
+	//this method is called first when performing a search, 
 	public boolean findCity(String city, String country, String state) throws SQLException{
 		boolean cityFound = false;
 		
+		//set up the credentials for connection
 		Properties dbCredentials = new Properties();
 		dbCredentials.put("user",  "root");//store database user as root
 		dbCredentials.put("password",  "panacea123"); //store database password as panacea123
 		Connection dbConnector = DriverManager.getConnection(CONNECTION, dbCredentials);
 		
-		
+		//put the query together
 		try {
 			String query = "SELECT * FROM city_coordinates WHERE "
 					+ "city = ? AND country = ? AND (state = ? OR state IS Null)";
 			
+			//creates a prepared statement
 			PreparedStatement ps = dbConnector.prepareStatement(query);
 			
+			//fill in the placeholders with the arguments
 			ps.setString(1, city);
 			ps.setString(2,  country);
 			ps.setString(3,  state);
 			
+			//store query results in rs
 			ResultSet rs = ps.executeQuery();
 			
+			//if there are results and city was in database, return true
 			if(rs.next()) {
 				cityFound = true;
 			}
 			
+			//close connection
 			rs.close();
 			ps.close();
 		}finally {
@@ -238,31 +260,43 @@ public class DatabaseClient {
 				dbConnector.close();
 			}
 		}// end of try/finally
+		//if city was not found, this will still be false
 		return cityFound;
 	}//end of search function
 		
+	
+	/**
+	 * @param target, city to be deleted
+	 * @return boolean, whether city was deleted or not
+	 * @throws SQLException
+	 */
 	public boolean deleteCity(String target) throws SQLException {
-		
+		//included for testing purposes, so don't have to check database
 		boolean removed = false;
 	
+		//set up credentials for connection
 		Properties dbCredentials = new Properties();
 		dbCredentials.put("user",  "root");//store database user as root
 		dbCredentials.put("password",  "panacea123"); //store database password as panacea123
 		Connection dbConnector = DriverManager.getConnection(CONNECTION, dbCredentials);
 		
+		//store query in a string
 		String query = "DELETE FROM city_coordinates WHERE city = ?";
 			
 		PreparedStatement ps = dbConnector.prepareStatement(query);
 			
+		//fill in placeholder with city being deleted
 		ps.setString(1, target);
 			
+		//check how many rows got deleted, may delete more than one
 		int deletedRows = ps.executeUpdate();
 		
+		//if there was at least one row deleted, return true
 		if(deletedRows > 0) {
 			removed = true;
 		}
 		
-		
+		//close connections
 		ps.close();
 		dbConnector.close();
 		

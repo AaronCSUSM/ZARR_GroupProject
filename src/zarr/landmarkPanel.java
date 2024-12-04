@@ -37,8 +37,9 @@ public class landmarkPanel extends JPanel{
 		
 		//header for panel
 		JLabel headerLabel = new JLabel("Most Popular Landmarks to Visit", JLabel.CENTER); //centers this
-		headerLabel.setFont(new Font("Arial", Font.BOLD, 24)); //set the font of it
-
+		//headerLabel.setFont(new Font("Arial", Font.BOLD, 24)); //set the font of it
+		headerLabel.setFont(new Font("Edwardian Script ITC", Font.BOLD, 50)); // Slightly larger, bold font
+		
 		//add to panel layout (what to add, where to add)
 		add(headerLabel, BorderLayout.NORTH);
 		
@@ -57,7 +58,7 @@ public class landmarkPanel extends JPanel{
 				"Agra",
 				"India",
 				null,
-				"https://en.wikipedia.org/wiki/File:Taj_Mahal_(Edited).jpeg",
+				"https://upload.wikimedia.org/wikipedia/commons/1/1d/Taj_Mahal_%28Edited%29.jpeg",
 				"An ivory-white marble mausoleum on the right bank of the river Yamuna in Agra, Uttar Pradesh, India. The building complex incorporates the design traditions of Indo-Islamic and Mughal architecture.",
 				"Yann Forget, Wikimedia Commons"
 				);
@@ -67,7 +68,7 @@ public class landmarkPanel extends JPanel{
 				"Rome",
 				"Italy",
 				null,
-				"https://en.wikipedia.org/wiki/File:Colosseo_2020.jpg",
+				"https://upload.wikimedia.org/wikipedia/commons/d/de/Colosseo_2020.jpg",
 				"The Colosseum is the largest ancient amphitheater ever built, and is still the largest standing amphitheater in the world, despite its age. It is still a renowned symbol of Imperial Rome and was listed as one of the New 7 Wonders of the World. It is one of Rome's most popular tourist attractions.",
 				"FeaturedPics, Wikimedia Commons"
 				);
@@ -77,7 +78,7 @@ public class landmarkPanel extends JPanel{
 				"Rio de Janeiro",
 				"Brazil",
 				null,
-				"https://en.wikipedia.org/wiki/File:Christ_on_Corcovado_mountain.JPG",
+				"https://upload.wikimedia.org/wikipedia/commons/a/ae/Christ_on_Corcovado_mountain.JPG",
 				"Christ the Redeemer is an Art Deco statue of Jesus in Rio de Janeiro, Brazil. This statue is the largest Art Deco–style sculpture in the world. A symbol of Christianity around the world, the statue has also become a cultural icon of both Rio de Janeiro and Brazil and was voted one of the New 7 Wonders of the World.",
 				"Artyominc, Wikipedia"
 				);
@@ -87,7 +88,7 @@ public class landmarkPanel extends JPanel{
 				"Sydney",
 				"Australia",
 				null,
-				"https://en.wikipedia.org/wiki/File:Sydney_Australia._(21339175489).jpg",
+				"https://upload.wikimedia.org/wikipedia/commons/a/a0/Sydney_Australia._%2821339175489%29.jpg",
 				"The Sydney Opera House is a multi-venue performing arts centre in Sydney, New South Wales, Australia. Located on the foreshore of Sydney Harbour, it is widely regarded as one of the world's most famous and distinctive buildings and a masterpiece of 20th-century architecture.",
 				"Bernard Spragg, Wikipedia"
 				);
@@ -97,7 +98,7 @@ public class landmarkPanel extends JPanel{
 				"Giza",
 				"Egypt",
 				null,
-				"https://en.wikipedia.org/wiki/File:Sphinx_with_the_third_pyramid.jpg",
+				"https://upload.wikimedia.org/wikipedia/commons/4/42/Sphinx_with_the_third_pyramid.jpg",
 				"The Great Sphinx of Giza is a limestone statue of a reclining sphinx, a mythical creature with the head of a human and the body of a lion. The Sphinx is the oldest known monumental sculpture in Egypt and one of the most recognizable statues in the world.",
 				"Hesham Ebaid, Wikipedia"
 				);
@@ -146,7 +147,7 @@ public class landmarkPanel extends JPanel{
 		JButton exploreButton = new JButton("Explore " + location.getCity());
 		
 		exploreButton.addActionListener(e->{
-			SearchPanel.setSearchFields(location.getCity(), location.getCountry(), location.getState(), "museum");
+			SearchPanel.setSearchFields(location.getCity(), location.getCountry(), location.getState(), "landmarks");
 			this.cardLayout.show(mainPanel, "Search");
 		});
 		

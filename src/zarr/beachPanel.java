@@ -33,7 +33,8 @@ public class beachPanel extends JPanel{
         
         //header for panel
         JLabel headerLabel = new JLabel("Most Popular Beaches to Visit", JLabel.CENTER); //centers this
-        headerLabel.setFont(new Font("Arial", Font.BOLD, 24)); //set the font of it
+        //headerLabel.setFont(new Font("Arial", Font.BOLD, 24)); //set the font of it
+        headerLabel.setFont(new Font("Edwardian Script ITC", Font.BOLD, 50)); // Slightly larger, bold font
 
         
         add(headerLabel, BorderLayout.NORTH);

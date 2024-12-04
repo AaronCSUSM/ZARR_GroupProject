@@ -20,33 +20,37 @@ import org.json.JSONObject;
  *
  */
 public class APIClient {
+	//get back geocoding requests when city is not already in database
 	public double[] geocodingRequest(String city, String country, String state) throws Exception{
-		double[] coordinates = new double[2];
+		double[] coordinates = new double[2];//function returns a small double array with coordinates
 		
-		if(state == null) {
+		if(state == null) {//state is optional for USA
 			state = "";
 		}
 		
+		//replace all spaces in input with %20
 		String city1 = city.replaceAll(" ", "%20");
 		String country1 = country.replaceAll(" ", "%20");
 		String state1 = state.replaceAll(" ", "%20");
 		
-		String location;
+		String location;//combine city, state, and country into one string
 		if("USA".equals(country)) {
 			location = city1 + "%2c%20" + state1 + "%2c%20" + country1;
 		}else {
 			location = city1 + "%2c%20" + country1;
 		}
 		
+		//put together API call for geocoding endpoint
 		String APIurl = "https://google-map-places.p.rapidapi.com/maps/api/geocode/json?address="
 				+ location
 				+ "&language=en&region=en&result_type=administrative_area_level_1&location_type=APPROXIMATE";
 		
+		//have the geocoding request return a JSON response
 		HttpResponse<JsonNode> response = Unirest.get(APIurl)
 				.header("x-rapidapi-key", "bb61dd9d71mshc40729a63f47406p12ed14jsn424d221a1e17")
 				.header("x-rapidapi-host", "google-map-places.p.rapidapi.com")
-				//.asString();
 				.asJson();
+		
 		//convert json response into a json object
 	    JSONObject jsonResponse = new JSONObject(response.getBody().toString());
 	      
@@ -57,21 +61,17 @@ public class APIClient {
 	    			.getJSONObject("geometry")//go into geometry
 	    			.getJSONObject("location");//go into location
 	    		  
-	    	coordinates[0] = locationData.getDouble("lat");
-	    	coordinates[1] = locationData.getDouble("lng");
+	    	coordinates[0] = locationData.getDouble("lat");//store latitude into first spot
+	    	coordinates[1] = locationData.getDouble("lng");//store longitude into second spot
 	    	
+	    	//round coordinates to two decimals place for city level coordinate accuracy
 	    	coordinates[0] = roundCoordinates(coordinates[0]);
 	    	coordinates[1] = roundCoordinates(coordinates[1]);
 	    	
+	    //if there were no coordinates found
 	    }else {
 	    	System.out.println("Location not found.");  
 	    }
-	    
-	    //System.out.println("Latitude: " + coordinates[0]);
-	    //System.out.println("Longitude: " + coordinates[1]);
-	    
-		//System.out.println("Geocoding Response finished.");
-		
 	    
 		return coordinates;
 	}
@@ -96,6 +96,7 @@ public class APIClient {
 	 * @throws Exception
 	 */
 	public LocDetails[] categoryRequest(double latitude, double longitude, String category) throws Exception{
+		//The API used returns a max of 20 keys
 		LocDetails[] ldArr = new LocDetails[20];
 		
 		//replace all spaces in category, e.g., "amusement park"
@@ -110,6 +111,7 @@ public class APIClient {
 				+ "&radius=100000&language=en&rankby=prominence&keyword="
 				+ category1;
 		
+		//have API return a JSON response
 		HttpResponse<JsonNode> response = Unirest.get(APIurl)
 				.header("x-rapidapi-key", "bb61dd9d71mshc40729a63f47406p12ed14jsn424d221a1e17")
 				.header("x-rapidapi-host", "google-map-places.p.rapidapi.com")
@@ -117,14 +119,15 @@ public class APIClient {
 				.asJson();
 		
 		
-		//convert API respons to one JSON object
+		//convert API response to one JSON object
 		JSONObject jsonResponse = response.getBody().getObject();
 		//results array will hold all locations found by api request
 		JSONArray results = jsonResponse.getJSONArray("results");
 		
 		
-		//check if anything was found
+		//check if anything was found, if not return an error
 		if(results.length() == 0) {
+			//create a LocDetails object to store each location
 			LocDetails invalidLoc = new LocDetails();
 			//after calling function check if arr[0].name == NoDataAvailable
 			invalidLoc.setName("NoDataAvailable");

@@ -36,8 +36,10 @@ public class parkPanel extends JPanel{
 			
 			//header for panel
 			JLabel headerLabel = new JLabel("Most Popular Amusement Parks to Visit", JLabel.CENTER); //centers this
-			headerLabel.setFont(new Font("Arial", Font.BOLD, 24)); //set the font of it
-
+			//headerLabel.setFont(new Font("Arial", Font.BOLD, 24)); //set the font of it
+			headerLabel.setFont(new Font("Edwardian Script ITC", Font.BOLD, 50)); // Slightly larger, bold font
+			
+			
 			//add to panel layout (what to add, where to add)
 			add(headerLabel, BorderLayout.NORTH);
 			
@@ -88,9 +90,9 @@ public class parkPanel extends JPanel{
 					"Paris", 
 					"France",
 					null,
-					"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fevasion-online.com%2Fimage-photo%2Fle%2Bparc%2Basterix%2F497110-peur-sur-le-parc-2019-halloween-au-parc-asterix-les-photos-57.jpg&f=1&nofb=1&ipt=9b14641d62deacc8337cfb8ce277648209692b0c46115fddf9648d95193d45e1&ipo=images",
+					"https://www.parisdigest.com/photos/parc_asterix_fun.jpg",
 					"Parc Asterix is a theme park in France based on the comic book series Asterix by Albert Uderzo and Rene Goscinny. It is renowned in France for its variety of roller coasters and water rides. ",
-					"evasion-online.com"
+					"parisdigest.com"
 					
 					);
 			
@@ -143,7 +145,7 @@ public class parkPanel extends JPanel{
 			JButton exploreButton = new JButton("Explore " + location.getCity());
 			
 			exploreButton.addActionListener(e->{
-				SearchPanel.setSearchFields(location.getCity(), location.getCountry(), location.getState(), "museum");
+				SearchPanel.setSearchFields(location.getCity(), location.getCountry(), location.getState(), "parks");
 				this.cardLayout.show(mainPanel, "Search");
 			});
 			

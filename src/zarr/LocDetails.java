@@ -8,18 +8,20 @@ package zarr;
  */
 public class LocDetails {
 
-	private String name;
-	private String status;
-	private String photo_reference;
-	private String place_id;
-	private double rating;
-	private int priceLevel;
+	private String name;//name of location
+	private String status;//operation status
+	private String photo_reference;//originally intended for retrieving photos
+	private String place_id;//used for other endpoints, collected just in case
+	private double rating;//so far all places have had a rating
+	private int priceLevel;//not all places had a pricelevel
 	
 	public LocDetails() {
+		//String values intially set to "N/A" in case they didn't have a value
 		this.name = "N/A";
 		this.status = "N/A";
 		this.photo_reference = "N/A";
 		this.place_id = "N/A";
+		//other methods will check if rating or priceLevel is -999 to determine if it should display or not
 		this.rating = -999;
 		this.priceLevel = -999;
 	}
@@ -124,6 +126,7 @@ public class LocDetails {
 	 * Method to print local details from passed array object.
 	 * @param loc local details array object
 	 */
+	//used to display the details of each location
 	public static void printLocDetails(LocDetails[] loc) {
 		for(int i = 0; i < loc.length; i++) {
 			if(loc[i] != null) {
@@ -144,37 +147,23 @@ public class LocDetails {
 		}
 	}//end printLocDetails
 	
-//	public static String LocDetailsToString(LocDetails[] ld) {
-//		String str = "";
-//		for(int i = 0; i < ld.length; i++) {
-//			if(ld[i] != null) {
-//				str = str + str + "LOCATION " + (i+1) + "\n" +
-//						"NAME: " + ld[i].getName() + "\n" +
-//						"STATUS: " + ld[i].getStatus() + "\n";
-//				if(ld[i].getRating() != -999) {
-//					str = str + "RATING: " + ld[i].getRating() + "\n";
-//				}
-//				if(ld[i].getPriceLevel() != -999) {
-//					str = str + "PRICE LEVEL: " + ld[i].getPriceLevel() + "\n";
-//				}
-//				str = str + "\n";
-//			}
-//		}//end for loop
-//		
-//		return str;
-//	}//end LocDetailsToString
 	
 	/**
 	 * Method to append information from API into a string for output. 
 	 * @param ld local details object
 	 * @return
 	 */
+	//another function for displaying the location details that returns a string instead of just printing with void
+	//was originally used when the results were just display a large textbox as one continuous string
+	//not used in final product
 	public static String LocDetailsToString(LocDetails[] ld) {
+		//uses stringBuilder for format the string
 		StringBuilder sb = new StringBuilder();
+		//loops through the location details array
 		for(int i = 0; i < ld.length; i++) {
 			if(ld[i] != null) {
 				sb.append(String.format("LOCATION: %d\n", i+1));
-				
+				//gives each label a space of 15, left aligned, so that they line up neatly
 				sb.append(String.format("%-15s %s\n", "NAME:", ld[i].getName()));
 				sb.append(String.format("%-15s %s\n", "STATUS:", ld[i].getStatus()));
 				

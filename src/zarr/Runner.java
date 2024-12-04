@@ -4,9 +4,18 @@ import java.sql.SQLException;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-
+/**
+ * 
+ * @author Aaron Cambridge, Rebecca Hall, River Hallie, Zach Miller
+ * @version 12/2/24
+ *
+ */
 public class Runner {
-
+	
+	/**
+	 * Main Method to run the program.
+	 * @param args The command line arguments
+	 */
 	public static void main(String[] args) {
 		 APIClient ac = new APIClient();
 	        DatabaseClient dc = new DatabaseClient();

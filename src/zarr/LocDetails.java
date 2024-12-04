@@ -1,5 +1,11 @@
 package zarr;
 
+/**
+ * 
+ * @author Aaron Cambridge, Rebecca Hall, River Hallie, Zach Miller
+ * @version 12/4/24
+ *
+ */
 public class LocDetails {
 
 	private String name;
@@ -18,54 +24,106 @@ public class LocDetails {
 		this.priceLevel = -999;
 	}
 	
+	/**
+	 * 
+	 * @param name name to set
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 	
+	/**
+	 * 
+	 * @return name name to get
+	 */
 	public String getName() {
 		return this.name;
 	}
 	
+	/**
+	 * 
+	 * @param status status to set
+	 */
 	public void setStatus(String status) {
 		this.status = status;
 	}
 	
+	/**
+	 * 
+	 * @return status status to get
+	 */
 	public String getStatus() {
 		return this.status;
 	}
 	
+	/**
+	 * 
+	 * @param photo_reference photo reference to set
+	 */
 	public void setPhotoReference(String photo_reference) {
 		this.photo_reference = photo_reference;
 	}
 	
+	/**
+	 * 
+	 * @return photo reference to get
+	 */
 	public String getPhotoReference() {
 		return this.photo_reference;
 	}
 	
+	/**
+	 * 
+	 * @param place_id place id to set
+	 */
 	public void setPlaceID(String place_id) {
 		this.place_id = place_id;
 	}
 	
+	/**
+	 * 
+	 * @return place_id place id to get.
+	 */
 	public String getPlaceID() {
 		return this.place_id;
 	}
 	
+	/**
+	 * 
+	 * @param rating rating to set
+	 */
 	public void setRating(double rating) {
 		this.rating = rating;
 	}
 	
+	/**
+	 * 
+	 * @return rating to get
+	 */
 	public double getRating() {
 		return this.rating;
 	}
 	
+	/**
+	 * 
+	 * @param priceLevel price level to set
+	 */
 	public void setPriceLevel(int priceLevel) {
 		this.priceLevel = priceLevel;
 	}
 	
+	/**
+	 * 
+	 * @return price level to get
+	 */
 	public int getPriceLevel() {
 		return this.priceLevel;
 	}
 	
+	/**
+	 * Method to print local details from passed array object.
+	 * @param loc local details array object
+	 */
 	public static void printLocDetails(LocDetails[] loc) {
 		for(int i = 0; i < loc.length; i++) {
 			if(loc[i] != null) {
@@ -106,6 +164,11 @@ public class LocDetails {
 //		return str;
 //	}//end LocDetailsToString
 	
+	/**
+	 * Method to append information from API into a string for output. 
+	 * @param ld local details object
+	 * @return
+	 */
 	public static String LocDetailsToString(LocDetails[] ld) {
 		StringBuilder sb = new StringBuilder();
 		for(int i = 0; i < ld.length; i++) {

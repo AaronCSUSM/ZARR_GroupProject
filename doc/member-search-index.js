@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"zarr","c":"searchPanel","l":"searchPanel(APIClient, DatabaseClient)","u":"%3Cinit%3E(zarr.APIClient,zarr.DatabaseClient)"},{"p":"zarr","c":"searchPanel","l":"setSearchFields(String, String, String, String)","u":"setSearchFields(java.lang.String,java.lang.String,java.lang.String,java.lang.String)"}];updateSearchResults();

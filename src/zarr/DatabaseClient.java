@@ -5,6 +5,12 @@ import java.sql.*;
 //Allows use of property class for holding settings like username and password.
 import java.util.Properties;
 
+/**
+ * 
+ * @author Aaron Cambridge, Rebecca Hall, River Hallie, Zach Miller
+ * @version 12/4/24
+ *
+ */
 //Declares DatabaseManager class
 public class DatabaseClient {
 	
@@ -63,9 +69,13 @@ public class DatabaseClient {
 		dbConnector.close();//close connection to database
 	}
 	
-	//function for creating a table using a Connection object as a parameter. 
-	//Will throw an error if it fails.
-	//DECIMAL(total digits, digits after decimal)
+
+	/**
+	 * Method for creating a table using a Connection object as a parameter.
+	 * @param dbConnector
+	 * @throws SQLException
+	 */
+	// DECIMAL(total digits, digits after decimal)
 	public void createTable(Connection dbConnector) throws SQLException{
 		//SQL queries stored as string variables
 		//"CREATE TABLE IF NOT EXISTS": sql command to create table if doesn't exist
@@ -86,6 +96,15 @@ public class DatabaseClient {
 		createTableQuerySTMT.close();
 	}
 	
+	/**
+	 * Method adds cities to the database.
+	 * @param newCity
+	 * @param newCountry
+	 * @param newState
+	 * @param newLatitude
+	 * @param newLongitude
+	 * @throws SQLException
+	 */
 	public void addCity(String newCity, String newCountry, String newState, double newLatitude, double newLongitude) throws SQLException
 	{
 		//create a Connection object to access table
@@ -137,6 +156,14 @@ public class DatabaseClient {
 		dbConnector.close();
 	}//end addCity method
 	
+	/**
+	 * Method fetches coordinates from cities within the database to be used for a future API call.
+	 * @param city
+	 * @param country
+	 * @param state
+	 * @return coordinates
+	 * @throws SQLException
+	 */
 	public double[] getCoordinates(String city, String country, String state) throws SQLException {
 		//create array to return coordinates
 		double[] coordinates = new double[2];
@@ -169,8 +196,16 @@ public class DatabaseClient {
 		return coordinates;
 	}
 	
-	
-	//search through database to see if city is already present using city, country, and state
+	/**
+	 * Method searches through the database to see if the provided city is already present.<br> 
+	 * This prevents unnecessary API calls if the data is already stored in database.
+	 * 
+	 * @param city name of city to be searched
+	 * @param country name of country to be searched
+	 * @param state name of state to be searched
+	 * @return cityFound to be searched
+	 * @throws SQLException
+	 */
 	public boolean findCity(String city, String country, String state) throws SQLException{
 		boolean cityFound = false;
 		

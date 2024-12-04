@@ -1,21 +1,35 @@
 package zarr;
 
 import javax.swing.*;
+
+import zarr.GUI.GradientButton;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
+/**
+ * 
+ * @author Aaron Cambridge, Rebecca Hall, River Hallie, Zach Miller
+ * @version 12/4/24
+ */
 public class searchPanel extends JPanel {
     private JTextField cityField;
     private JTextField countryField;
     private JTextField stateField;
     private JTextField catField;
-    private JButton searchButton;
+    // private JButton searchButton;
+    private GradientButton searchButton;
     private JPanel resultsPanel;
     private APIClient ac;
     private DatabaseClient dc;
 
+	 /**
+	  * This method creates the search panel for user input.
+	  * @param ac API client object
+	  * @param dc Database client object
+	  */
     public searchPanel(APIClient ac, DatabaseClient dc) {
         this.ac = ac;
         this.dc = dc;
@@ -45,8 +59,10 @@ public class searchPanel extends JPanel {
 
         inputPanel.add(fieldsPanel, BorderLayout.CENTER);
         
-
-        searchButton = new JButton("Search");
+        Color imessageBlue = new Color(8, 127, 254);
+		Color shinyBlue = new Color(143, 197, 255);
+		searchButton = new GradientButton("Search", shinyBlue, imessageBlue);
+        // searchButton = new GradientButton("Search");
         inputPanel.add(searchButton, BorderLayout.EAST);
         add(inputPanel, BorderLayout.NORTH);
 
@@ -94,6 +110,14 @@ public class searchPanel extends JPanel {
         resultsPanel.repaint();
     }
 
+	/**
+	 * This method takes in the passed arguments, and conducts the nearbysearch API call and returns the results in a local details array.
+	 * @param city name of city
+	 * @param country name of country 
+	 * @param state name of state
+	 * @param category name of category
+	 * @return ld (local details array)
+	 */
     private LocDetails[] performSearch(String city, String country, String state, String category) {
     	boolean cityFound = false;
 		double[]c = new double[2];
@@ -142,6 +166,11 @@ public class searchPanel extends JPanel {
 		return ld;
 	}//end performSearch
 
+    /**
+     * Method for creating a results panel which lists the results of a given search
+     * @param loc local details object
+     * @return resultPanel
+     */
     private JPanel createResultPanel(LocDetails loc) {
         JPanel resultPanel = new JPanel(new BorderLayout());
         resultPanel.setBorder(BorderFactory.createLineBorder(Color.BLUE));
@@ -190,6 +219,14 @@ public class searchPanel extends JPanel {
         return resultPanel;
     }
 
+	/**
+	 * Method that enables the explore button within the category panels. This populates the search field so that a user can further explore
+	 * a particular area found in a category panel.
+	 * @param city name of city
+	 * @param country name of country
+	 * @param state name of state
+	 * @param category name of category
+	 */
     public void setSearchFields(String city, String country, String state, String category) {
         this.cityField.setText(city);
         this.countryField.setText(country);

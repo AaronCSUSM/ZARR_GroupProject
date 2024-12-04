@@ -13,6 +13,12 @@ import com.google.gson.JsonParser;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+/**
+ * 
+ * @author Aaron Cambridge, Rebecca Hall, River Hallie, Zach Miller
+ * @version 12/4/24
+ *
+ */
 public class APIClient {
 	public double[] geocodingRequest(String city, String country, String state) throws Exception{
 		double[] coordinates = new double[2];
@@ -70,12 +76,25 @@ public class APIClient {
 		return coordinates;
 	}
 	
+	/**
+	 * <p>This function rounds coordinates from API, returns rounded coordinates</p>
+	 * @param x coordinates to be rounded
+	 * @return x 
+	 */
 	public double roundCoordinates(double x) {
 		x = Math.round(x * 100.0)/100.0;
 		return x;
 	}
 	
-	
+	/**
+	 * <p>This method is used in the search panel and sends a nearbysearch API call using the coordinates and category provided, which returns tailored results
+	 * matching the provided category.</p>
+	 * @param latitude latitude to be used in nearbysearch call
+	 * @param longitude longitude to be used in nearbysearch call
+	 * @param category category to be used in nearbysearch call
+	 * @return ldArr (array of local details)
+	 * @throws Exception
+	 */
 	public LocDetails[] categoryRequest(double latitude, double longitude, String category) throws Exception{
 		LocDetails[] ldArr = new LocDetails[20];
 		

@@ -5,13 +5,24 @@ import java.awt.*;
 //import java.awt.event.ActionEvent;
 //import java.awt.event.ActionListener;
 
+/**
+ * 
+ * @author Aaron Cambridge, Rebecca Hall, River Hallie, Zach Miller
+ * @version 12/4/24
+ *
+ */
 public class beachPanel extends JPanel{
 	
 	private searchPanel SearchPanel;
     private CardLayout cardLayout;
     private JPanel mainPanel;
     
-    
+    /**
+     * Constructor method for beach panel
+     * @param sp search panel object
+     * @param cl card layout object
+     * @param mp JPanel object for creating the main panel
+     */
 	public beachPanel(searchPanel sp, CardLayout cl, JPanel mp) {
 		this.SearchPanel = sp;
         this.cardLayout = cl;
@@ -101,6 +112,11 @@ public class beachPanel extends JPanel{
         
     }
     
+	/**
+	 * Method to populate the window with beach locations and info.
+	 * @param location location(s) to add into panel
+	 * @return locationPanel
+	 */
     public JPanel createLocationsPanel(browsingDetails location) {
         
         String locStr = location.toString();

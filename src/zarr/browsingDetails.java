@@ -5,6 +5,12 @@ import java.net.URL;
 import java.awt.Image;
 import javax.swing.*;
 
+/**
+*
+* @author Aaron Cambridge, Rebecca Hall, River Hallie, Zach Miller
+* @version 12/4/24
+*
+*/
 public class browsingDetails {
 	private String name;
 	private String city;
@@ -14,7 +20,16 @@ public class browsingDetails {
 	private String description;
 	private String photoSource;
 	
-	
+	/**
+	 * Constructor method for setting browsing details
+	 * @param n name
+	 * @param city name of city
+	 * @param country name of country
+	 * @param st name of state
+	 * @param url picture url
+	 * @param desc description
+	 * @param ps photo source
+	 */
 	public browsingDetails(String n, String city, String country, String st, String url, String desc, String ps) {
 		this.name = n;
 		this.city = city;
@@ -79,6 +94,10 @@ public class browsingDetails {
 		return picture;
 	}//end display image
 	
+	/**
+	 * Overrides toString to print an object neatly.
+	 * @return String representation of an object.
+	 */
 	public String toString() {
 		String locStr = this.getCity();
 		if(this.getState() != null) {

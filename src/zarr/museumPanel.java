@@ -7,12 +7,24 @@ import java.awt.event.ActionListener;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * 
+ * @author Aaron Cambridge, Rebecca Hall, River Hallie, Zach Miller
+ * @version 12/4/24
+ *
+ */
 public class museumPanel extends JPanel{
 	
 	private searchPanel SearchPanel;
 	private CardLayout cardLayout;
 	private JPanel mainPanel;
 	
+	/**
+	 * Constructor method for creating the museum panel
+	 * @param sp search panel object
+	 * @param cl card layout object
+	 * @param mp JPanel object to create main panel
+	 */
 	public museumPanel(searchPanel sp, CardLayout cl, JPanel mp) {
 		
 		this.SearchPanel = sp;
@@ -106,6 +118,11 @@ public class museumPanel extends JPanel{
 		
 	}//end constructor
 	
+	/**
+	 * Method to populate the window with museum locations and info.
+	 * @param location location(s) to add into panel
+	 * @return locationPanel
+	 */
 	public JPanel createLocationsPanel(browsingDetails location) {
 		
 		String locStr = location.toString();

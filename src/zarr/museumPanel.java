@@ -45,7 +45,8 @@ public class museumPanel extends JPanel{
 				"France",
 				null,
 				"https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Louvre_Museum_Wikimedia_Commons.jpg/1200px-Louvre_Museum_Wikimedia_Commons.jpg?20161126115921",
-				"The largest museum in the world housing some of the most popular works of art such as the Mona Lisa. Contains over 500,000 objects from France and abroad."
+				"The largest museum in the world housing some of the most popular works of art such as the Mona Lisa. Contains over 500,000 objects from France and abroad.",
+				"Benh LIEU SONG, Wikipedia"
 				);
 		
 		locations[1] = new browsingDetails(
@@ -54,8 +55,8 @@ public class museumPanel extends JPanel{
 				"Rome",
 				null,
 				"https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/0_Cortile_della_Pigna_-_Vatican.JPG/1280px-0_Cortile_della_Pigna_-_Vatican.JPG",
-				"Contains roughly 70,000 works of art with 20,000 pieces on display across it's 54 galleries. The museum's primary themes include Roman art, Catholicism, and Renaissance paintings."
-				
+				"Contains roughly 70,000 works of art with 20,000 pieces on display across it's 54 galleries. The museum's primary themes include Roman art, Catholicism, and Renaissance paintings.",
+				"Jean-Pol GRANDMONT, Wikipedia"
 				);
 		
 		locations[2] = new browsingDetails(
@@ -64,7 +65,8 @@ public class museumPanel extends JPanel{
 				"China",
 				null,
 				"https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/62684-Beijing-Tiananmen-Square_%2828609003992%29.jpg/1920px-62684-Beijing-Tiananmen-Square_%2828609003992%29.jpg",
-				"This museum houses the largest collection of Chinese cultural relics from various time periods with over 1.4 million pieces."
+				"This museum houses the largest collection of Chinese cultural relics from various time periods with over 1.4 million pieces.",
+				"xiquinhosilva, Wikipedia"
 				
 				);
 		
@@ -74,7 +76,8 @@ public class museumPanel extends JPanel{
 				"United Kingdom",
 				null,
 				"https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/British_Museum_from_NE_2_%28cropped%29.JPG/1280px-British_Museum_from_NE_2_%28cropped%29.JPG",
-				"This museum boasts the largest collection in the world with over 8,000,000 cultural works. The British museum was the most popular attraction in the United Kingdom in 2023. "
+				"This museum boasts the largest collection in the world with over 8,000,000 cultural works. The British museum was the most popular attraction in the United Kingdom in 2023. ",
+				"Ham, Wikipedia"
 				
 				);
 		
@@ -84,7 +87,8 @@ public class museumPanel extends JPanel{
 				"USA",
 				"New York",
 				"https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Metropolitan_Museum_of_Art_%28The_Met%29_-_Central_Park%2C_NYC.jpg/1920px-Metropolitan_Museum_of_Art_%28The_Met%29_-_Central_Park%2C_NYC.jpg",
-				"The Met is the fifth most popular art museum in the world and the most popular art museum throughout the United States. Contains 1.5 million works. "
+				"The Met is the fifth most popular art museum in the world and the most popular art museum throughout the United States. Contains 1.5 million works. ",
+				"Hugo Schneider, Wikipedia"
 				
 				);
 				
@@ -117,6 +121,7 @@ public class museumPanel extends JPanel{
 		JLabel nameL = new JLabel("NAME: " + location.getName());
 		JLabel locationL = new JLabel("LOCATION: " + locStr);
 		JLabel descriptionL = new JLabel("<html><div style='width:250px;'>DESCRIPTION:  "+ location.getDescription()+"</div></html>");
+		JLabel photoSource = new JLabel("PHOTO SOURCE: " + location.getPhotoSource());
 		JButton exploreButton = new JButton("Explore " + location.getCity());
 		
 		exploreButton.addActionListener(e->{
@@ -127,6 +132,7 @@ public class museumPanel extends JPanel{
 		leftPanel.add(nameL);
 		leftPanel.add(locationL);
 		leftPanel.add(descriptionL);
+		leftPanel.add(photoSource);
 		leftPanel.add(Box.createRigidArea(new Dimension(0,10)));
 		leftPanel.add(exploreButton);
 		

@@ -150,7 +150,7 @@ public class searchPanel extends JPanel {
         JPanel textPanel = new JPanel();
         textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
         textPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        textPanel.setBackground(Color.CYAN);
+        textPanel.setBackground(Color.YELLOW);
 
         JLabel nameLabel = new JLabel("Name: " + loc.getName());
         JLabel statusLabel = new JLabel("Operational Status: " + loc.getStatus());
@@ -179,6 +179,7 @@ public class searchPanel extends JPanel {
         
         JLabel ratingLabel = new JLabel("Rating: " + ratingText);
         JLabel priceLabel = new JLabel("Price Level: " + priceText);
+        priceLabel.setForeground(Color.GREEN);
 
         textPanel.add(nameLabel);
         textPanel.add(statusLabel);

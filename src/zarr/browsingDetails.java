@@ -12,9 +12,10 @@ public class browsingDetails {
 	private String state;
 	private String pictureURL;
 	private String description;
+	private String photoSource;
 	
 	
-	public browsingDetails(String n, String city, String country, String st, String url, String desc) {
+	public browsingDetails(String n, String city, String country, String st, String url, String desc, String ps) {
 		this.name = n;
 		this.city = city;
 		this.country = country;
@@ -25,6 +26,7 @@ public class browsingDetails {
 		}
 		this.pictureURL = url;
 		this.description = desc;
+		this.photoSource = ps;
 	}
 	
 	public String getName() {
@@ -49,6 +51,10 @@ public class browsingDetails {
 	
 	public String getDescription() {
 		return this.description;
+	}
+	
+	public String getPhotoSource() {
+		return this.photoSource;
 	}
 	
 	public JLabel displayImage() {

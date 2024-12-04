@@ -57,7 +57,7 @@ public class GUI extends JFrame {
 		mainPanel.add(createPanelWithBackButton(new beachPanel(sp, cardLayout, mainPanel), "Beaches"), "Beaches");
 	    mainPanel.add(createPanelWithBackButton(new parkPanel(sp, cardLayout, mainPanel), "Parks"), "Parks");
 	    mainPanel.add(createPanelWithBackButton(new museumPanel(sp, cardLayout, mainPanel), "Museums"), "Museums");
-	    mainPanel.add(createPanelWithBackButton(new landmarkPanel(), "Landmarks"), "Landmarks");
+	    mainPanel.add(createPanelWithBackButton(new landmarkPanel(sp, cardLayout, mainPanel), "Landmarks"), "Landmarks");
 	    //mainPanel.add(createPanelWithBackButton(new searchPanel(this.ac, this.dc), "Search"), "Search");
 		
 		add(mainPanel, BorderLayout.CENTER); //adds the main panel to the center of the frame

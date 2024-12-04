@@ -6,135 +6,96 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
+public class searchPanel extends JPanel {
+    private JTextField cityField;
+    private JTextField countryField;
+    private JTextField stateField;
+    private JTextField catField;
+    private JButton searchButton;
+    private JPanel resultsPanel;
+    private APIClient ac;
+    private DatabaseClient dc;
 
-public class searchPanel extends JPanel{
-	 private JTextField searchField;
-	 private JButton searchButton;
-	 private JTextArea resultsArea;
-	 
-	 //new changes
-	 private JTextField cityField;
-	 private JTextField countryField;
-	 private JTextField stateField;
-	 private JTextField catField;
-	 private APIClient ac;
-	 private DatabaseClient dc;
-	
-	public searchPanel(APIClient ac, DatabaseClient dc) {
-		this.ac = ac;
-		this.dc = dc;
-		
-		//BorderLayout divides entire panel into North, East, South, West, and Center
-		setLayout(new BorderLayout());
-		//convert panel into a grid (numRows, numCol, space between col, space between row)
-		//new GridLayout(2, 1, 5, 5);
-		
-		//top search bar
-		
-		//input panel is top half of searchPanel
-		JPanel inputPanel = new JPanel(new BorderLayout());
-		//fieldsPanel is left (west) side of inputpanel where user will input data
-        JPanel fieldsPanel = new JPanel(new GridLayout(4, 2, 5, 5));
-        // Add padding to the inputPanel by wrapping it in a separate panel
-        // Right side (button) using FlowLayout
-	    
+    public searchPanel(APIClient ac, DatabaseClient dc) {
+        this.ac = ac;
+        this.dc = dc;
 
-		
-		//searchField = new JTextField(20);
-		//new changes
+        setLayout(new BorderLayout());
         
-        //add in text fields for user input
-		cityField = new JTextField(15);
-		countryField = new JTextField(15);
-		stateField = new JTextField(15);
-		catField = new JTextField(15);
-		
-		//add each text field to the fields panel
-		fieldsPanel.add(new JLabel("City:"));
-		fieldsPanel.add(cityField);
-		fieldsPanel.add(new JLabel("Country:"));
-		fieldsPanel.add(countryField);
-		fieldsPanel.add(new JLabel("State (if in USA):"));
-		fieldsPanel.add(stateField);
-		fieldsPanel.add(new JLabel("Category:"));
-		fieldsPanel.add(catField);
-		
-		//fields panel now has necessary components, add it to inputPanel
-		inputPanel.add(fieldsPanel, BorderLayout.CENTER);
-		
-		//buttonPanel is right (east) side of inputPanel, just holds search button
-		JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		//create a new button
-		searchButton = new JButton("Search");
-		//add the button to buttonPanel
-	    buttonPanel.add(searchButton);
-	    //add buttonPanel to east side of inputPanel
-		inputPanel.add(buttonPanel, BorderLayout.EAST);
-		
-	    //inputpanel was 
-        JPanel NorthPadPanel = new JPanel(new BorderLayout());
-        NorthPadPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // 10px padding
-        NorthPadPanel.add(inputPanel, BorderLayout.WEST);
-        NorthPadPanel.add(buttonPanel, BorderLayout.EAST);
-        add(NorthPadPanel, BorderLayout.NORTH);
-		//searchBar.add(searchField);
-		//searchBar.add(cityField);
-		//searchBar.add(countryField);
-		//searchBar.add(stateField);
-		//searchBar.add(catField);
-		
-		
-		
-		
-		//results area
-        JPanel SouthPadPanel = new JPanel(new BorderLayout());
-        SouthPadPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));;
-		resultsArea = new JTextArea(10, 30);
-		resultsArea.setEditable(true);
-		Font f = new Font( "Monospaced", Font.PLAIN, 12 ); 
-		resultsArea.setFont(f);
-		
-		JScrollPane jsp = new JScrollPane(resultsArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		
-		SouthPadPanel.add(jsp, BorderLayout.CENTER);
-		add(SouthPadPanel, BorderLayout.CENTER);
-		//add(new JScrollPane(resultsArea), BorderLayout.CENTER);
-		
-		//button action
-		searchButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				//String searchText = searchField.getText();
-				LocDetails[] lds = new LocDetails[20];
-				if(cityField.getText().isEmpty() || countryField.getText().isEmpty() || catField.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(searchPanel.this, "Please enter a city, country, and category.");
-				}else {
-					String userCity = cityField.getText();
-					String userCountry = countryField.getText();
-					String userCat = catField.getText();
-					if(stateField.getText().isEmpty()) {
-						lds = performSearch(userCity, userCountry, null, userCat);
-					}else {
-						String userState = stateField.getText();
-						lds = performSearch(userCity, userCountry, userState, userCat);
-					}//end inner if
-				}//end if
-				
-				//if(cityField.isEmpty()) {
-					//performSearch(searchText);
-				//}else {
-					//JOptionPane.showMessageDialog(searchPanel.this, "Please enter a search term.");
-				//}
-				resultsArea.setText(LocDetails.LocDetailsToString(lds));
-			}//end actionPerformed
-		});//end addActionListener
-		
-	}//end searchPanel
-	
-	private LocDetails[] performSearch(String city, String country, String state, String category) {
-		//placeholder for api call logic
-		//resultsArea.setText("Searching for: " + searchText + "\nResults:\n1. Example Result 1\n2. Example Result 2");
-		//boolean cityFound = false;
+        setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+
+        // Input Panel
+        JPanel inputPanel = new JPanel(new BorderLayout());
+        
+        JPanel fieldsPanel = new JPanel(new GridLayout(4, 2, 5, 5));
+        
+        cityField = new JTextField(15);
+        countryField = new JTextField(15);
+        stateField = new JTextField(15);
+        catField = new JTextField(15);
+
+        fieldsPanel.add(new JLabel("City:"));
+        fieldsPanel.add(cityField);
+        fieldsPanel.add(new JLabel("Country:"));
+        fieldsPanel.add(countryField);
+        fieldsPanel.add(new JLabel("State (if in USA):"));
+        fieldsPanel.add(stateField);
+        fieldsPanel.add(new JLabel("Category:"));
+        fieldsPanel.add(catField);
+
+        inputPanel.add(fieldsPanel, BorderLayout.CENTER);
+        
+
+        searchButton = new JButton("Search");
+        inputPanel.add(searchButton, BorderLayout.EAST);
+        add(inputPanel, BorderLayout.NORTH);
+
+        // Results Panel
+        resultsPanel = new JPanel();
+        //resultsPanel.setBackground(Color.CYAN);
+        resultsPanel.setLayout(new BoxLayout(resultsPanel, BoxLayout.Y_AXIS));
+        JScrollPane resultsScrollPane = new JScrollPane(resultsPanel);
+        resultsScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        resultsScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        add(resultsScrollPane, BorderLayout.CENTER);
+
+        // Search Button Action
+        searchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                performSearchAndUpdateResults();
+            }
+        });
+    }
+
+    private void performSearchAndUpdateResults() {
+        resultsPanel.removeAll();
+
+        LocDetails[] lds = new LocDetails[20];
+        if (cityField.getText().isEmpty() || countryField.getText().isEmpty() || catField.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a city, country, and category.");
+            return;
+        }
+
+        String city = cityField.getText();
+        String country = countryField.getText();
+        String category = catField.getText();
+        String state = stateField.getText().isEmpty() ? null : stateField.getText();
+
+        lds = performSearch(city, country, state, category);
+
+        for (LocDetails ld : lds) {
+            if (ld != null) {
+                resultsPanel.add(createResultPanel(ld));
+                resultsPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Add spacing
+            }
+        }
+        resultsPanel.revalidate();
+        resultsPanel.repaint();
+    }
+
+    private LocDetails[] performSearch(String city, String country, String state, String category) {
+    	boolean cityFound = false;
 		double[]c = new double[2];
 		LocDetails[] ld = new LocDetails[20];
 		
@@ -180,15 +141,63 @@ public class searchPanel extends JPanel{
 		//System.out.println("Search results: " + cityFound);
 		return ld;
 	}//end performSearch
-	
-	public void setSearchFields(String city, String country, String state, String category) {
-		this.cityField.setText(city);
-		this.countryField.setText(country);
-		this.catField.setText(category);
-		if(state != null) {
-			this.stateField.setText(state);
-		}else {
-			this.stateField.setText("");
-		}
-	}
-}//end searchPanel
+
+    private JPanel createResultPanel(LocDetails loc) {
+        JPanel resultPanel = new JPanel(new BorderLayout());
+        resultPanel.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+        resultPanel.setBackground(Color.BLUE);
+
+        JPanel textPanel = new JPanel();
+        textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
+        textPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        textPanel.setBackground(Color.CYAN);
+
+        JLabel nameLabel = new JLabel("Name: " + loc.getName());
+        JLabel statusLabel = new JLabel("Operational Status: " + loc.getStatus());
+        
+        String ratingText = "";
+        if(loc.getRating() != -999) {
+        	ratingText = String.valueOf(loc.getRating());
+        }else {
+        	ratingText = "---";
+        }
+        
+        String priceText = "";
+        if(loc.getPriceLevel() != -999) {
+        	if(loc.getPriceLevel() <= 1) {
+        		priceText = "$";
+        	}else if(loc.getPriceLevel() == 2) {
+        		priceText = "$$";
+        	}else if(loc.getPriceLevel() == 3) {
+        		priceText = "$$$";
+        	}else {
+        		priceText = "$$$$";
+        	}
+        }else {
+        	priceText = "---";
+        }
+        
+        JLabel ratingLabel = new JLabel("Rating: " + ratingText);
+        JLabel priceLabel = new JLabel("Price Level: " + priceText);
+
+        textPanel.add(nameLabel);
+        textPanel.add(statusLabel);
+        textPanel.add(ratingLabel);
+        textPanel.add(priceLabel);
+
+        resultPanel.add(textPanel, BorderLayout.CENTER);
+        return resultPanel;
+    }
+
+    public void setSearchFields(String city, String country, String state, String category) {
+        this.cityField.setText(city);
+        this.countryField.setText(country);
+        this.catField.setText(category);
+        if(state != null) {
+        	this.stateField.setText(state);
+        }else {
+        	this.stateField.setText("");
+        }
+        //this.stateField.setText(state != null ? state : "");
+    }
+}

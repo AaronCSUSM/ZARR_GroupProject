@@ -113,11 +113,11 @@ public class GUI extends JFrame {
 
 	    // Create Row 1: Beaches and Parks buttons
 	    JPanel row1Panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10)); // FlowLayout for center alignment
-	    JButton beachesButton = new JButton("5 Best Beaches");
+	    JButton beachesButton = new JButton("View Popular Beaches");
 	    styleButton(beachesButton); // Applying styling to the button
 	    beachesButton.addActionListener(e -> showPanel("Beaches"));
 	    
-	    JButton parksButton = new JButton("5 Best Parks");
+	    JButton parksButton = new JButton("View Popular Parks");
 	    styleButton(parksButton); // Apply styling to the button
 	    parksButton.addActionListener(e -> showPanel("Parks"));
 	    
@@ -126,11 +126,11 @@ public class GUI extends JFrame {
 	    
 	    // Create Row 2: Landmarks and Museums buttons
 	    JPanel row2Panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10)); // Similar layout as row1
-	    JButton landmarksButton = new JButton("5 Best Landmarks");
+	    JButton landmarksButton = new JButton("View Popular Landmarks");
 	    styleButton(landmarksButton);
 	    landmarksButton.addActionListener(e -> showPanel("Landmarks"));
 	    
-	    JButton museumsButton = new JButton("5 Best Museums");
+	    JButton museumsButton = new JButton("View Popular Museums");
 	    styleButton(museumsButton);
 	    museumsButton.addActionListener(e -> showPanel("Museums"));
 	    
